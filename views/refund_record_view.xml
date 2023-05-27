@@ -60,7 +60,7 @@
                      <button name='rejected' class="oe_highlight" string="Manager Reject"
                             type="object"
                             attrs="{'invisible':[('status', 'in', ['teacher','accountant','reject','accounts','head','paid'])]}"
-                            groups="refund_logic.refund_manager"/>
+                            groups="Refund.refund_manager"/>
                     <!--                    &lt;!&ndash;                    <button name='accounts_approval' class="oe_highlight" string="Approve"&ndash;&gt;-->
                     <!--                    &lt;!&ndash;                            type="object"&ndash;&gt;-->
                     <!--                    &lt;!&ndash;                            attrs="{'invisible':[('status', 'in', ['manager','teacher','reject','head','paid'])]}"&ndash;&gt;-->
@@ -124,7 +124,7 @@
         <field name="view_mode">tree,form,activity</field>
     </record>
     <menuitem name="Refund" id="menu_student_refund" action="refund_student_view_tree"
-              web_icon="refund_logic/static/description/refund_icon.png"
+              web_icon="Refund/static/description/refund_icon.png"
               sequence="4"/>
     <!--    <menuitem-->
     <!--            id="menu_view_faculty_set"-->
