@@ -32,7 +32,7 @@
                                         <div class="col-sm">
                                             <input id="student_name" type="student_name"
                                                    class="form-control s_website_form_input"
-                                                   name="student_name" placeholder="Student name"/>
+                                                   name="student_name" placeholder="Student name" required=" "/>
                                         </div>
                                     </div>
                                 </div>
@@ -51,7 +51,7 @@
                                         <div class="col-sm">
                                             <input id="course" type="course"
                                                    class="form-control s_website_form_input"
-                                                   name="course"/>
+                                                   name="course" required=" "/>
                                         </div>
                                     </div>
                                 </div>
@@ -70,7 +70,7 @@
                                         <div class="col-sm">
                                             <input id="batch" type="batch"
                                                    class="form-control s_website_form_input"
-                                                   name="batch"/>
+                                                   name="batch" required=" "/>
                                         </div>
                                     </div>
                                 </div>
@@ -89,7 +89,7 @@
                                         <div class="col-sm">
                                             <input id="branch" type="branch"
                                                    class="form-control s_website_form_input"
-                                                   name="branch"/>
+                                                   name="branch" required=" "/>
                                         </div>
                                     </div>
                                 </div>
@@ -108,7 +108,7 @@
                                         <div class="col-sm">
                                             <input id="admission_no" type="admission_no"
                                                    class="form-control s_website_form_input"
-                                                   name="admission_no"/>
+                                                   name="admission_no" required=" "/>
                                         </div>
                                     </div>
                                 </div>
@@ -127,7 +127,7 @@
                                         <div class="col-sm">
                                             <input id="phone" type="phone"
                                                    class="form-control s_website_form_input"
-                                                   name="phone"/>
+                                                   name="phone" required=" "/>
                                         </div>
                                     </div>
                                 </div>
@@ -146,7 +146,7 @@
                                         <div class="col-sm">
                                             <input id="parent_no" type="parent_no"
                                                    class="form-control s_website_form_input"
-                                                   name="parent_no"/>
+                                                   name="parent_no" required=" "/>
                                         </div>
                                     </div>
                                 </div>
@@ -165,7 +165,7 @@
                                         <div class="col-sm">
                                             <input id="email" type="email"
                                                    class="form-control s_website_form_input"
-                                                   name="email"/>
+                                                   name="email" required=" "/>
                                         </div>
                                     </div>
                                 </div>
@@ -186,7 +186,7 @@
                                         <div class="col-sm">
                                             <input id="amount" type="amount"
                                                    class="form-control s_website_form_input"
-                                                   name="amount"/>
+                                                   name="amount" required=" "/>
                                         </div>
                                     </div>
                                 </div>
@@ -205,7 +205,7 @@
                                         <div class="col-sm">
                                             <input id="invoice_no" type="invoice_no"
                                                    class="form-control s_website_form_input"
-                                                   name="invoice_no"/>
+                                                   name="invoice_no" required=" "/>
                                         </div>
                                     </div>
                                 </div>
@@ -224,7 +224,7 @@
                                         <div class="col-sm">
                                             <input id="invoice_date" type="invoice_date"
                                                    class="form-control s_website_form_input"
-                                                   name="invoice_date" placeholder="YYYY-MM-DD"/>
+                                                   name="invoice_date" placeholder="YYYY-MM-DD" required=" "/>
                                         </div>
                                     </div>
                                 </div>
@@ -243,7 +243,7 @@
                                         <div class="col-sm">
                                             <input id="reason" type="reason"
                                                    class="form-control s_website_form_input"
-                                                   name="reason"/>
+                                                   name="reason" required=" "/>
                                         </div>
                                     </div>
                                 </div>
