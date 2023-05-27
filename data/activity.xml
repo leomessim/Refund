@@ -2,7 +2,7 @@
 <odoo>
     <record id="mail_activity_refund_alert_custome" model="mail.activity.type">
         <field name="name">Refund Alert</field>
-        <field name="res_model_id" ref="refund_logic.model_student_refund"/>
+        <field name="res_model_id" ref="Refund.model_student_refund"/>
         <field name="delay_count">30</field>
     </record>
     <data noupdate="1">

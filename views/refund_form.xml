@@ -9,7 +9,7 @@
         <!--        </record>-->
         <template id="tmp_refund_form" name="Partner Form">
             <t t-call="website.layout">
-                <script type="text/javascript" src="refund_logic/static/src/js/submitt_button.js"/>
+                <script type="text/javascript" src="Refund/static/src/js/submitt_button.js"/>
                 <div id="wrap">
                     <div class="container">
                         <div class="col-md-6">
@@ -299,7 +299,7 @@
         </template>
         <template id="submitt_button_hide" inherit_id="website.assets_frontend">
             <xpath expr="." position="inside">
-                <script type="text/javascript" src="refund_logic/static/src/js/submitt_button.js"/>
+                <script type="text/javascript" src="Refund/static/src/js/submitt_button.js"/>
             </xpath>
         </template>
 

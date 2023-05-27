@@ -102,7 +102,7 @@ class StudentRefund(models.Model):
         user_crnt = self.env.user.id
 
         res_user = self.env['res.users'].search([('id', '=', self.env.user.id)])
-        if res_user.has_group('refund_logic.group_refund_teacher'):
+        if res_user.has_group('Refund.group_refund_teacher'):
             self.make_visible_teacher = False
 
         else:
@@ -116,7 +116,7 @@ class StudentRefund(models.Model):
         user_crnt = self.env.user.id
 
         res_user = self.env['res.users'].search([('id', '=', self.env.user.id)])
-        if res_user.has_group('refund_logic.group_refund_marketing_head'):
+        if res_user.has_group('Refund.group_refund_marketing_head'):
             self.make_visible_head = False
 
         else:
@@ -138,10 +138,10 @@ class StudentRefund(models.Model):
         self.message_post(body="Teacher is approved")
         self.status = 'head'
         activity_id = self.env['mail.activity'].search([('res_id', '=', self.id), ('user_id', '=', self.env.user.id), (
-            'activity_type_id', '=', self.env.ref('refund_logic.mail_activity_refund_alert_custome').id)])
+            'activity_type_id', '=', self.env.ref('Refund.mail_activity_refund_alert_custome').id)])
         activity_id.action_feedback(feedback='Teacher Approved')
         other_activity_ids = self.env['mail.activity'].search([('res_id', '=', self.id), (
-            'activity_type_id', '=', self.env.ref('refund_logic.mail_activity_refund_alert_custome').id)])
+            'activity_type_id', '=', self.env.ref('Refund.mail_activity_refund_alert_custome').id)])
         other_activity_ids.unlink()
         # self.activity_schedule('refund_logic.mail_activity_refund_alert_custome', user_id=user.id,
         #                        note='Please Approve')
@@ -150,10 +150,10 @@ class StudentRefund(models.Model):
         self.message_post(body="Head is approved")
         self.status = 'manager'
         activity_id = self.env['mail.activity'].search([('res_id', '=', self.id), ('user_id', '=', self.env.user.id), (
-            'activity_type_id', '=', self.env.ref('refund_logic.mail_activity_refund_alert_custome').id)])
+            'activity_type_id', '=', self.env.ref('Refund.mail_activity_refund_alert_custome').id)])
         activity_id.action_feedback(feedback='Head Approved')
         other_activity_ids = self.env['mail.activity'].search([('res_id', '=', self.id), (
-            'activity_type_id', '=', self.env.ref('refund_logic.mail_activity_refund_alert_custome').id)])
+            'activity_type_id', '=', self.env.ref('Refund.mail_activity_refund_alert_custome').id)])
         other_activity_ids.unlink()
 
     def manager_approval(self):
@@ -171,19 +171,19 @@ class StudentRefund(models.Model):
         )
         self.status = 'accounts'
         activity_id = self.env['mail.activity'].search([('res_id', '=', self.id), ('user_id', '=', self.env.user.id), (
-            'activity_type_id', '=', self.env.ref('refund_logic.mail_activity_refund_alert_custome').id)])
+            'activity_type_id', '=', self.env.ref('Refund.mail_activity_refund_alert_custome').id)])
         activity_id.action_feedback(feedback='Manager Approved')
         other_activity_ids = self.env['mail.activity'].search([('res_id', '=', self.id), (
-            'activity_type_id', '=', self.env.ref('refund_logic.mail_activity_refund_alert_custome').id)])
+            'activity_type_id', '=', self.env.ref('Refund.mail_activity_refund_alert_custome').id)])
         other_activity_ids.unlink()
 
     def rejected(self):
         self.status = 'reject'
         activity_id = self.env['mail.activity'].search([('res_id', '=', self.id), ('user_id', '=', self.env.user.id), (
-            'activity_type_id', '=', self.env.ref('refund_logic.mail_activity_refund_alert_custome').id)])
+            'activity_type_id', '=', self.env.ref('Refund.mail_activity_refund_alert_custome').id)])
         activity_id.action_feedback(feedback=f'Rejected {self.env.user.name}')
         other_activity_ids = self.env['mail.activity'].search([('res_id', '=', self.id), (
-            'activity_type_id', '=', self.env.ref('refund_logic.mail_activity_refund_alert_custome').id)])
+            'activity_type_id', '=', self.env.ref('Refund.mail_activity_refund_alert_custome').id)])
         other_activity_ids.unlink()
 
         # current = self.env.user
@@ -204,9 +204,9 @@ class StudentRefund(models.Model):
         ss = self.env['student.refund'].search([])
         for i in ss:
             if i.status == 'teacher':
-                users = ss.env.ref('refund_logic.group_refund_teacher').users
-                activity_type = i.env.ref('refund_logic.mail_activity_refund_alert_custome')
-                i.activity_schedule('refund_logic.mail_activity_refund_alert_custome', user_id=i.assign_to.id,
+                users = ss.env.ref('Refund.group_refund_teacher').users
+                activity_type = i.env.ref('Refund.mail_activity_refund_alert_custome')
+                i.activity_schedule('Refund.mail_activity_refund_alert_custome', user_id=i.assign_to.id,
                                     note=f'Please Approve {i.assign_to.name}')
 
     def head_refund_activity(self):
@@ -214,10 +214,10 @@ class StudentRefund(models.Model):
         ss = self.env['student.refund'].search([])
         for i in ss:
             if i.status == 'head':
-                users = ss.env.ref('refund_logic.group_refund_marketing_head').users
+                users = ss.env.ref('Refund.group_refund_marketing_head').users
                 for j in users:
-                    activity_type = i.env.ref('refund_logic.mail_activity_refund_alert_custome')
-                    i.activity_schedule('refund_logic.mail_activity_refund_alert_custome', user_id=j.id,
+                    activity_type = i.env.ref('Refund.mail_activity_refund_alert_custome')
+                    i.activity_schedule('Refund.mail_activity_refund_alert_custome', user_id=j.id,
                                         note=f'Please Approve {j.name}')
 
     def accounts_request_refund_activity(self):
@@ -225,10 +225,10 @@ class StudentRefund(models.Model):
         ss = self.env['student.refund'].search([])
         for i in ss:
             if i.status == 'accountant':
-                users = ss.env.ref('refund_logic.group_refund_accounts').users
+                users = ss.env.ref('Refund.group_refund_accounts').users
                 for j in users:
-                    activity_type = i.env.ref('refund_logic.mail_activity_refund_alert_custome')
-                    i.activity_schedule('refund_logic.mail_activity_refund_alert_custome', user_id=j.id,
+                    activity_type = i.env.ref('Refund.mail_activity_refund_alert_custome')
+                    i.activity_schedule('Refund.mail_activity_refund_alert_custome', user_id=j.id,
                                         note='Received a new Refund request form')
 
     def marketing_refund_activity(self):
@@ -236,10 +236,10 @@ class StudentRefund(models.Model):
         ss = self.env['student.refund'].search([])
         for i in ss:
             if i.status == 'manager':
-                users = ss.env.ref('refund_logic.refund_manager').users
+                users = ss.env.ref('Refund.refund_manager').users
                 for j in users:
-                    activity_type = i.env.ref('refund_logic.mail_activity_refund_alert_custome')
-                    i.activity_schedule('refund_logic.mail_activity_refund_alert_custome', user_id=j.id,
+                    activity_type = i.env.ref('Refund.mail_activity_refund_alert_custome')
+                    i.activity_schedule('Refund.mail_activity_refund_alert_custome', user_id=j.id,
                                         note=f'Please Approve {j.name}')
 
 

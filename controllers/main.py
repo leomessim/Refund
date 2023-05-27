@@ -7,7 +7,7 @@ class PartnerForm(http.Controller):
     def partner_form(self, **kw):
         student_name = request.env['student.details'].sudo().search([])
         print(student_name)
-        return request.render("refund_logic.tmp_refund_form", {'student_name': student_name})
+        return request.render("Refund.tmp_refund_form", {'student_name': student_name})
 
     @http.route(['/refund/form/submit'], type='http', auth="public", website=True, csrf=False)
     def customer_form_submit(self, **kw):
@@ -40,4 +40,4 @@ class PartnerForm(http.Controller):
         #
         # }
         # request.env['mail.mail'].create(main_content).send()
-        return request.render("refund_logic.tmp_refund_form_success", {})
+        return request.render("Refund.tmp_refund_form_success", {})

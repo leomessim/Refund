@@ -29,34 +29,34 @@
                             type="object"
                             context="{'default_user_id': active_id}"
                             attrs="{'invisible':[('status', 'in', ['teacher','manager','accounts','head','reject','paid'])]}"
-                            groups="refund_logic.group_refund_accounts"/>
+                            groups="Refund.group_refund_accounts"/>
 <!--                    <button name="custome_refund" string="Test" type="object"/>-->
                     <button name='rejected' class="oe_highlight" string="Reject"
                             type="object"
                             attrs="{'invisible':[('status', 'in', ['teacher','manager','accounts','head','reject','paid'])]}"
-                            groups="refund_logic.group_refund_accounts"/>
+                            groups="Refund.group_refund_accounts"/>
 
                     <!---->
                     <button name='teacher_approval' class="oe_highlight" string="Teacher Approve"
                             type="object"
                             attrs="{'invisible':[('status', 'in', ['accountant','accounts','manager','head','reject','paid'])]}"
-                            groups="refund_logic.group_refund_teacher"/>
+                            groups="Refund.group_refund_teacher"/>
                     <button name='rejected' class="oe_highlight" string="Teacher Reject"
                             type="object"
                             attrs="{'invisible':[('status', 'in', ['accountant','accounts','manager','head','reject','paid'])]}"
-                            groups="refund_logic.group_refund_teacher"/>
+                            groups="Refund.group_refund_teacher"/>
                     <button name='head_approval' class="oe_highlight" string="Head Approve"
                             type="object"
                             attrs="{'invisible':[('status', 'in', ['teacher','accounts','manager','accountant','reject','paid'])]}"
-                            groups="refund_logic.group_refund_marketing_head"/>
+                            groups="Refund.group_refund_marketing_head"/>
                     <button name='rejected' class="oe_highlight" string="Head reject"
                             type="object"
                             attrs="{'invisible':[('status', 'in', ['teacher','accounts','manager','accountant','reject','paid'])]}"
-                            groups="refund_logic.group_refund_marketing_head"/>
+                            groups="Refund.group_refund_marketing_head"/>
                     <button name='manager_approval' class="oe_highlight" string="Manager Approve"
                             type="object"
                             attrs="{'invisible':[('status', 'in', ['teacher','accountant','reject','accounts','head','paid'])]}"
-                            groups="refund_logic.refund_manager"/>
+                            groups="Refund.refund_manager"/>
                      <button name='rejected' class="oe_highlight" string="Manager Reject"
                             type="object"
                             attrs="{'invisible':[('status', 'in', ['teacher','accountant','reject','accounts','head','paid'])]}"
