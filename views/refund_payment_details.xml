@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="payment_details_form_view" model="ir.ui.view">
+        <field name="name">Refund Payment</field>
+        <field name="model">payment.details</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form string="refund payment">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="refund_amount"/>
+                            <field name="refund_date"/>
+                            <field name="transaction_id"/>
+                        </group>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"
+                           widget="mail_followers"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+    <record id="refund_payment_form_view" model="ir.ui.view">
+        <field name="name">Refund Payment</field>
+        <field name="model">refund.payment</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form string="refund payment">
+                <header>
+                    <field name="status" widget="statusbar"
+                           statusbar_visible="in_payment,paid,cancel"/>
+                    <button name='paid' class="oe_highlight" string="Pay"
+                            type="object"
+                            attrs="{'invisible':[('status', 'in', ['cancel','paid'])]}"/>
+                    <button name='cancel' class="oe_highlight" string="Cancel"
+                            type="object"
+                            attrs="{'invisible':[('status', 'in', ['cancel','paid'])]}"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="amount"/>
+                            <field name="batch"/>
+                            <field name="course"/>
+                            <field name="student_admission_no"/>
+                            <field name="invoice_number"/>
+                            <field name="invoice_date"/>
+
+                            <!--                            <field name="refund_date"/>-->
+                            <!--                            <field name="transaction_id"/>-->
+                        </group>
+                        <group>
+                            <field name="transaction_id"/>
+                            <field name="date_of_refund"/>
+                            <field name="refund_amount" widget='monetary' options="{'currency_field': 'currency_id'}"/>
+                        </group>
+                    </group>
+                    <group name="note_group" col="6">
+                        <group class="oe_subtotal_footer oe_right" colspan="2" name="payment">
+                            <!--                            <field name="total_net_hour_amount"/>-->
+                            <!--                            <field name="duration_amount"/>-->
+
+                            <div class="oe_subtotal_footer_separator oe_inline">
+                                <label for="total_refund"/>
+                            </div>
+                            <field name="total_refund" nolabel="1" class="oe_subtotal_footer_separator"
+                                   widget='monetary' options="{'currency_field': 'currency_id'}"/>
+                            <!--                                   attrs="{'invisible':[('state','in',['draft'])]}"/>-->
+
+                        </group>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"
+                           widget="mail_followers"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+    <record id="refund_payment_tree" model="ir.ui.view">
+        <field name="name">Refund</field>
+        <field name="model">refund.payment</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+
+            </tree>
+
+        </field>
+    </record>
+    <record model="ir.actions.act_window" id="refund_payment_view_tree">
+        <field name="name">Refund</field>
+        <field name="res_model">refund.payment</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <menuitem name="Refund Payment" id="menu_refund_payment" action="refund_payment_view_tree"
+              parent="menu_student_refund"
+              sequence="4"/>
+</odoo>
