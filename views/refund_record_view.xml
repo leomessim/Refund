@@ -103,8 +103,8 @@
                 <div class="oe_chatter">
                     <field name="message_follower_ids"
                            widget="mail_followers"/>
-                    <field name="activity_ids"/>
-                    <field name="message_ids" widget="mail_thread"/>
+                    <field name="activity_ids" widget="mail_activity"/>
+                    <field name="message_ids" widget="mail_thread" options="{'post_refresh': 'recipients'}"/>
                 </div>
             </form>
         </field>
@@ -124,7 +124,7 @@
         <field name="view_mode">tree,form,activity</field>
     </record>
     <menuitem name="Refund" id="menu_student_refund" action="refund_student_view_tree"
-              web_icon="Refund/static/description/refund_icon.png"
+              web_icon="Refund/static/description/icon.png"
               sequence="4"/>
     <!--    <menuitem-->
     <!--            id="menu_view_faculty_set"-->

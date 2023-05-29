@@ -13,6 +13,7 @@
         'views/refund_payment_details.xml',
         # 'views/activities.xml'
     ],
+
     'demo': [],
     'summary': "logic_refund",
     'description': "this_is_my_app",
