@@ -36,6 +36,35 @@
                                         </div>
                                     </div>
                                 </div>
+<!--                                <div class="form-group col-12 s_website_form_field s_website_form_required">-->
+<!--                                    <div class="row s_col_no_resize s_col_no_bgcolor">-->
+<!--                                        <label class="col-form-label col-sm-auto s_website_form_label"-->
+<!--                                               style="width: 200px">-->
+<!--                                            <span class="s_website_form_label_content">-->
+<!--                                                Name-->
+<!--                                            </span>-->
+<!--                                            <span class="s_website_form_mark">-->
+<!--                                                *-->
+<!--                                            </span>-->
+<!--                                        </label>-->
+<!--                                        <div class="col-sm">-->
+<!--                                            <select name="customer_id"-->
+<!--                                                    id="customer_id"-->
+<!--                                                    class="form-control link-style">-->
+<!--                                                <option value="">-->
+<!--                                                    Course...-->
+<!--                                                </option>-->
+<!--                                                <t t-foreach="courses"-->
+<!--                                                   t-as="course">-->
+<!--                                                    <option t-att-value="courses.id">-->
+<!--                                                        <t t-esc="courses.name"-->
+<!--                                                           t-att-value="courses.id"/>-->
+<!--                                                    </option>-->
+<!--                                                </t>-->
+<!--                                            </select>-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+<!--                                </div>-->
                                 <div class="form-group col-12 s_website_form_field s_website_form_required"
                                      data-type="char" data-name="Field">
                                     <div class="row s_col_no_resize s_col_no_bgcolor">
@@ -49,10 +78,26 @@
                                             </span>
                                         </label>
                                         <div class="col-sm">
-                                            <input id="course" type="course"
-                                                   class="form-control s_website_form_input"
-                                                   name="course" required=" "/>
+                                            <select name="customer_id"
+                                                    id="customer_id"
+                                                    class="form-control link-style">
+                                                <option value="">
+                                                    Course...
+                                                </option>
+                                                <t t-foreach="course"
+                                                   t-as="course">
+                                                    <option t-att-value="course.id">
+                                                        <t t-esc="course.name"
+                                                           t-att-value="course.id" required=" "/>
+                                                    </option>
+                                                </t>
+                                            </select>
                                         </div>
+<!--                                        <div class="col-sm">-->
+<!--                                            <input id="course" type="course"-->
+<!--                                                   class="form-control s_website_form_input"-->
+<!--                                                   name="course" required=" "/>-->
+<!--                                        </div>-->
                                     </div>
                                 </div>
                                 <div class="form-group col-12 s_website_form_field s_website_form_required"

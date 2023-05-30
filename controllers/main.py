@@ -5,16 +5,22 @@ from odoo.http import request
 class PartnerForm(http.Controller):
     @http.route(['/refund/form'], type='http', auth="public", website=True, csrf=False)
     def partner_form(self, **kw):
+        course = request.env['logic.courses'].search([])
         student_name = request.env['student.details'].sudo().search([])
         print(student_name)
-        return request.render("Refund.tmp_refund_form", {'student_name': student_name})
+        values = {
+            'course': course,
+            'student_name': student_name,
+            # 'order': sale_order,
+        }
+        return request.render("Refund.tmp_refund_form", values)
 
     @http.route(['/refund/form/submit'], type='http', auth="public", website=True, csrf=False)
     def customer_form_submit(self, **kw):
         request.env['student.refund'].sudo().create({
             'student_name': kw.get('student_name'),
             'batch': kw.get('batch'),
-            'course': kw.get('course'),
+            'course': kw.get('customer_id'),
             'amount': kw.get('amount'),
             'email': kw.get('email'),
             'phone_number': kw.get('phone'),

@@ -30,7 +30,7 @@
                             context="{'default_user_id': active_id}"
                             attrs="{'invisible':[('status', 'in', ['teacher','manager','accounts','head','reject','paid'])]}"
                             groups="Refund.group_refund_accounts"/>
-<!--                    <button name="custome_refund" string="Test" type="object"/>-->
+                    <!--                    <button name="custome_refund" string="Test" type="object"/>-->
                     <button name='rejected' class="oe_highlight" string="Reject"
                             type="object"
                             attrs="{'invisible':[('status', 'in', ['teacher','manager','accounts','head','reject','paid'])]}"
@@ -57,7 +57,7 @@
                             type="object"
                             attrs="{'invisible':[('status', 'in', ['teacher','accountant','reject','accounts','head','paid'])]}"
                             groups="Refund.refund_manager"/>
-                     <button name='rejected' class="oe_highlight" string="Manager Reject"
+                    <button name='rejected' class="oe_highlight" string="Manager Reject"
                             type="object"
                             attrs="{'invisible':[('status', 'in', ['teacher','accountant','reject','accounts','head','paid'])]}"
                             groups="Refund.refund_manager"/>
@@ -74,7 +74,8 @@
                         <group>
 
                             <!--                            <field name="name" readonly="True"/>-->
-                            <field name="assign_to" attrs="{'invisible':[('status', 'in', ['teacher','manager','accounts','head','reject','paid'])]}"/>
+                            <field name="assign_to"
+                                   attrs="{'invisible':[('status', 'in', ['teacher','manager','accounts','head','reject','paid'])]}"/>
                             <field name="student_name"/>
                             <field name="course"/>
                             <field name="batch"/>
@@ -82,20 +83,37 @@
                             <field name="email"/>
                             <field name="phone_number"/>
                             <field name="parent_number"/>
+                            <field name="student_admission_no"/>
+                            <field name="invoice_number"/>
+                            <field name="invoice_date"/>
+                            <field name="reason"/>
                         </group>
                         <group>
                             <field name="make_visible_teacher" invisible="1"/>
                             <field name="make_visible_head" invisible="1"/>
-                            <field name="student_admission_no"/>
-                            <field name="invoice_number"/>
-                            <field name="invoice_date"/>
                             <field name="amount"/>
-                            <field name="reason"/>
-                            <field name="head_reason" attrs="{'readonly':['|',('make_visible_head', '=', True),('status', 'in', ['accountant','accounts','teacher','reject','paid'])]}"/>
+                            <field name="board_check" invisible="1"/>
+                            <field name="head_reason"
+                                   attrs="{'readonly':['|',('make_visible_head', '=', True),('status', 'in', ['accountant','accounts','manager','teacher','reject','paid'])]}"/>
                             <field name="sat_class"
                                    attrs="{'readonly':['|',('make_visible_teacher', '=', True),('status', 'in', ['accountant','accounts','manager','head','reject','paid'])]}"/>
                             <field name="teacher_reason"
                                    attrs="{'readonly':['|',('make_visible_teacher', '=', True),('status', 'in', ['accountant','accounts','manager','head','reject','paid'])]}"/>
+                            <field name="stream"
+                                   attrs="{'readonly':['|',('make_visible_teacher', '=', True),('status', 'in', ['accountant','accounts','manager','head','reject','paid'])]}"/>
+                            <field name="attended_class"
+                                   attrs="{'readonly':['|',('make_visible_teacher', '=', True),('status', 'in', ['accountant','accounts','manager','head','reject','paid'])]}"/>
+                            <field name="total_class"
+                                   attrs="{'readonly':['|',('make_visible_teacher', '=', True),('status', 'in', ['accountant','accounts','manager','head','reject','paid'])]}"/>
+                            <field name="session_completed"
+                                   attrs="{'readonly':['|',('make_visible_teacher', '=', True),('status', 'in', ['accountant','accounts','manager','head','reject','paid'])]}"/>
+                            <field name="part_attended"
+                                   attrs="{'readonly':['|',('make_visible_teacher', '=', True),('status', 'in', ['accountant','accounts','manager','head','reject','paid'])]}"/>
+                            <field name="admission_officer"
+                                   attrs="{'readonly':[('status', 'in', ['accountant','accounts','teacher','head','reject','paid'])]}"/>
+                            <field name="board_registration"
+                                   attrs="{'readonly':['|','|',('make_visible_teacher', '=', True),('board_check', '=', False),('status', 'in', ['accountant','accounts','manager','head','reject','paid'])], 'invisible':[('board_check', '=', False)]}"/>
+
 
                         </group>
                     </group>

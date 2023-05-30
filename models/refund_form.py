@@ -16,7 +16,7 @@ class StudentRefund(models.Model):
 
     amount = fields.Float(string='Amount', readonly=True)
     batch = fields.Char(string='Batch', readonly=True)
-    course = fields.Char(string='Course', readonly=True)
+    course = fields.Many2one('logic.courses', string='Course', readonly=True)
     email = fields.Char(string='Email', readonly=True)
     phone_number = fields.Char(string='Phone number', widget='phone', readonly=True)
     reason = fields.Text(string='Student reason', readonly=True)
@@ -42,6 +42,18 @@ class StudentRefund(models.Model):
 
     make_visible_teacher = fields.Boolean(string="User", default=True, compute='get_teacher')
     action_testing = fields.Float('Action')
+    stream = fields.Selection([
+                ('online', 'Online'),
+                ('offline', 'Offline'),
+            ], string='Stream')
+    attended_class = fields.Integer(string='Attended class')
+    total_class = fields.Integer(string='Total class')
+    session_completed = fields.Text(string='Session completed')
+    part_attended = fields.Text(string='Part attended')
+    admission_officer = fields.Char(string='Admission officer')
+    board_registration = fields.Selection([('completed', 'Completed'),
+                                           ('not', 'Not')], string='Board registration')
+    board_check = fields.Boolean()
 
     def confirm_assign(self):
         if not self.assign_to:
@@ -55,6 +67,10 @@ class StudentRefund(models.Model):
             other_activity_ids = self.env['mail.activity'].search([('res_id', '=', self.id), (
                 'activity_type_id', '=', self.env.ref('Refund.mail_activity_refund_alert_custome').id)])
             other_activity_ids.unlink()
+            if self.course.board_registration == True:
+                self.board_check = True
+            else:
+                self.board_check = False
         # users = self.env.ref('refund_logic.group_refund_teacher').users
         # activity_type = self.env.ref('refund_logic.mail_activity_refund_alert_custome')
         # self.activity_schedule('refund_logic.mail_activity_refund_alert_custome', user_id=self.assign_to.id,

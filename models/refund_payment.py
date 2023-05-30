@@ -8,7 +8,7 @@ class RefundPayment(models.Model):
     name = fields.Char(string='Name', readonly=True)
     amount = fields.Float(string='Amount paid', readonly=True)
     batch = fields.Char(string='Batch', readonly=True)
-    course = fields.Char(string='Course', readonly=True)
+    course = fields.Many2one('logic.courses', string='Course', readonly=True)
     status = fields.Selection([
         ('in_payment', 'Draft'),
         ('cancel', 'Cancel'),
