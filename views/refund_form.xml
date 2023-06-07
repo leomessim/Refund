@@ -267,7 +267,7 @@
                                             </span>
                                         </label>
                                         <div class="col-sm">
-                                            <input id="invoice_date" type="invoice_date"
+                                            <input id="invoice_date" type="Date"
                                                    class="form-control s_website_form_input"
                                                    name="invoice_date" placeholder="YYYY-MM-DD" required=" "/>
                                         </div>
