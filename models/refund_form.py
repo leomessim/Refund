@@ -22,6 +22,7 @@ class StudentRefund(models.Model):
     reason = fields.Text(string='Student reason', readonly=True)
     status = fields.Selection([
         ('accountant', 'Draft'),
+        ('head_assign', 'Head Approval'),
         ('teacher', 'Teacher Approval'),
         ('head', 'Head Approval'),
         ('manager', 'Manager Approval'),
@@ -29,6 +30,7 @@ class StudentRefund(models.Model):
         ('reject', 'Rejected'),
         ('paid', 'Paid'),
     ], string='Status', default='accountant')
+    assign_head = fields.Many2one('res.users', string='Assign head')
 
     branch = fields.Char('Branch', readonly=True)
     student_admission_no = fields.Char('Admission number', readonly=True)
@@ -36,8 +38,8 @@ class StudentRefund(models.Model):
     invoice_number = fields.Char('Invoice number', readonly=True)
     invoice_date = fields.Date('Invoice date', readonly=True)
     sat_class = fields.Integer(string='How many days he sat in the class')
-    teacher_reason = fields.Text('Reason for teacher')
-    head_reason = fields.Text('Reason for head')
+    teacher_reason = fields.Text('Remarks for teacher')
+    head_reason = fields.Text('Remarks of head')
     assign_to = fields.Many2one('res.users', string='Assign to')
 
     make_visible_teacher = fields.Boolean(string="User", default=True, compute='get_teacher')
@@ -56,10 +58,10 @@ class StudentRefund(models.Model):
     board_check = fields.Boolean()
 
     def confirm_assign(self):
-        if not self.assign_to:
-            raise UserError('Please assign a teacher..')
+        if not self.assign_head:
+            raise UserError('Please assign a Head..')
         else:
-            self.status = 'teacher'
+            self.status = 'head_assign'
             activity_id = self.env['mail.activity'].search(
                 [('res_id', '=', self.id), ('user_id', '=', self.env.user.id), (
                     'activity_type_id', '=', self.env.ref('Refund.mail_activity_refund_alert_custome').id)])
@@ -77,6 +79,19 @@ class StudentRefund(models.Model):
         #                        note=f'Please Approve {self.assign_to.name}')
         #
         # print(self.env.ref('refund_logic.mail_activity_refund_alert_custome').id, 'lll')
+
+    def confirm_assign_teacher(self):
+        if not self.assign_to:
+            raise UserError('Please assign a Teacher..')
+        else:
+            self.status = 'teacher'
+            activity_id = self.env['mail.activity'].search(
+                [('res_id', '=', self.id), ('user_id', '=', self.env.user.id), (
+                    'activity_type_id', '=', self.env.ref('Refund.mail_activity_refund_alert_custome').id)])
+            activity_id.action_feedback(feedback='Assigned')
+            other_activity_ids = self.env['mail.activity'].search([('res_id', '=', self.id), (
+                'activity_type_id', '=', self.env.ref('Refund.mail_activity_refund_alert_custome').id)])
+            other_activity_ids.unlink()
 
     @api.depends('make_visible_teacher')
     def get_teacher(self):
@@ -118,7 +133,7 @@ class StudentRefund(models.Model):
 
     def teacher_approval(self):
         self.message_post(body="Teacher is approved")
-        self.status = 'head'
+        self.status = 'manager'
         activity_id = self.env['mail.activity'].search([('res_id', '=', self.id), ('user_id', '=', self.env.user.id), (
             'activity_type_id', '=', self.env.ref('Refund.mail_activity_refund_alert_custome').id)])
         activity_id.action_feedback(feedback='Teacher Approved')
@@ -129,14 +144,17 @@ class StudentRefund(models.Model):
         #                        note='Please Approve')
 
     def head_approval(self):
-        self.message_post(body="Head is approved")
-        self.status = 'manager'
-        activity_id = self.env['mail.activity'].search([('res_id', '=', self.id), ('user_id', '=', self.env.user.id), (
-            'activity_type_id', '=', self.env.ref('Refund.mail_activity_refund_alert_custome').id)])
-        activity_id.action_feedback(feedback='Head Approved')
-        other_activity_ids = self.env['mail.activity'].search([('res_id', '=', self.id), (
-            'activity_type_id', '=', self.env.ref('Refund.mail_activity_refund_alert_custome').id)])
-        other_activity_ids.unlink()
+        if not self.assign_to:
+            raise UserError('Please assign a Teacher..')
+        else:
+            self.message_post(body="Head is approved")
+            self.status = 'teacher'
+            activity_id = self.env['mail.activity'].search([('res_id', '=', self.id), ('user_id', '=', self.env.user.id), (
+                'activity_type_id', '=', self.env.ref('Refund.mail_activity_refund_alert_custome').id)])
+            activity_id.action_feedback(feedback='Head Approved')
+            other_activity_ids = self.env['mail.activity'].search([('res_id', '=', self.id), (
+                'activity_type_id', '=', self.env.ref('Refund.mail_activity_refund_alert_custome').id)])
+            other_activity_ids.unlink()
 
     def manager_approval(self):
         self.message_post(body="Marketing Manager is approved")
@@ -144,7 +162,7 @@ class StudentRefund(models.Model):
             'name': self.student_name,
             'amount': self.amount,
             'batch': self.batch,
-            'course': self.course,
+            'course': self.course.id,
             'student_admission_no': self.student_admission_no,
             'invoice_number': self.invoice_number,
             'invoice_date': self.invoice_date,

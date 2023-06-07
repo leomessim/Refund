@@ -23,27 +23,32 @@
             <form string="refund">
                 <header>
                     <field name="status" widget="statusbar"
-                           statusbar_visible="accountant,teacher,head,manager,accounts,reject,paid"/>
+                           statusbar_visible="accountant,head_assign,teacher,manager,accounts,reject,paid"/>
 
                     <button name='confirm_assign' class="oe_highlight" string="Confirm"
                             type="object"
                             context="{'default_user_id': active_id}"
-                            attrs="{'invisible':[('status', 'in', ['teacher','manager','accounts','head','reject','paid'])]}"
+                            attrs="{'invisible':[('status', 'in', ['teacher','head_assign','manager','accounts','reject','paid'])]}"
                             groups="Refund.group_refund_accounts"/>
+<!--                    <button name='confirm_assign_teacher' class="oe_highlight" string="Confirm"-->
+<!--                            type="object"-->
+<!--                            context="{'default_user_id': active_id}"-->
+<!--                            attrs="{'invisible':[('status', 'in', ['accountant','teacher','manager','accounts','reject','paid'])]}"-->
+<!--                            groups="Refund.group_refund_marketing_head"/>-->
                     <!--                    <button name="custome_refund" string="Test" type="object"/>-->
                     <button name='rejected' class="oe_highlight" string="Reject"
                             type="object"
-                            attrs="{'invisible':[('status', 'in', ['teacher','manager','accounts','head','reject','paid'])]}"
+                            attrs="{'invisible':[('status', 'in', ['teacher','head_assign','manager','accounts','reject','paid'])]}"
                             groups="Refund.group_refund_accounts"/>
 
                     <!---->
                     <button name='teacher_approval' class="oe_highlight" string="Teacher Approve"
                             type="object"
-                            attrs="{'invisible':[('status', 'in', ['accountant','accounts','manager','head','reject','paid'])]}"
+                            attrs="{'invisible':[('status', 'in', ['accountant','head_assign','accounts','manager','reject','paid'])]}"
                             groups="Refund.group_refund_teacher"/>
                     <button name='rejected' class="oe_highlight" string="Teacher Reject"
                             type="object"
-                            attrs="{'invisible':[('status', 'in', ['accountant','accounts','manager','head','reject','paid'])]}"
+                            attrs="{'invisible':[('status', 'in', ['accountant','head_assign','accounts','manager','reject','paid'])]}"
                             groups="Refund.group_refund_teacher"/>
                     <button name='head_approval' class="oe_highlight" string="Head Approve"
                             type="object"
@@ -55,11 +60,11 @@
                             groups="Refund.group_refund_marketing_head"/>
                     <button name='manager_approval' class="oe_highlight" string="Manager Approve"
                             type="object"
-                            attrs="{'invisible':[('status', 'in', ['teacher','accountant','reject','accounts','head','paid'])]}"
+                            attrs="{'invisible':[('status', 'in', ['teacher','head_assign','accountant','reject','accounts','paid'])]}"
                             groups="Refund.refund_manager"/>
                     <button name='rejected' class="oe_highlight" string="Manager Reject"
                             type="object"
-                            attrs="{'invisible':[('status', 'in', ['teacher','accountant','reject','accounts','head','paid'])]}"
+                            attrs="{'invisible':[('status', 'in', ['teacher','head_assign','accountant','reject','accounts','paid'])]}"
                             groups="Refund.refund_manager"/>
                     <!--                    &lt;!&ndash;                    <button name='accounts_approval' class="oe_highlight" string="Approve"&ndash;&gt;-->
                     <!--                    &lt;!&ndash;                            type="object"&ndash;&gt;-->
@@ -72,10 +77,11 @@
                     <field name="reference_no" readonly="True"/>
                     <group>
                         <group>
+                            <field name="assign_head" attrs="{'invisible':[('status', 'in', ['teacher','head_assign','manager','accounts','reject','paid'])]}"/>
 
                             <!--                            <field name="name" readonly="True"/>-->
                             <field name="assign_to"
-                                   attrs="{'invisible':[('status', 'in', ['teacher','manager','accounts','head','reject','paid'])]}"/>
+                                   attrs="{'invisible':[('status', 'in', ['accountant','teacher','manager','accounts','reject','paid'])]}"/>
                             <field name="student_name"/>
                             <field name="course"/>
                             <field name="batch"/>
@@ -96,23 +102,23 @@
                             <field name="head_reason"
                                    attrs="{'readonly':['|',('make_visible_head', '=', True),('status', 'in', ['accountant','accounts','manager','teacher','reject','paid'])]}"/>
                             <field name="sat_class"
-                                   attrs="{'readonly':['|',('make_visible_teacher', '=', True),('status', 'in', ['accountant','accounts','manager','head','reject','paid'])]}"/>
+                                   attrs="{'readonly':['|',('make_visible_teacher', '=', True),('status', 'in', ['accountant','head_assign','accounts','manager','reject','paid'])]}"/>
                             <field name="teacher_reason"
-                                   attrs="{'readonly':['|',('make_visible_teacher', '=', True),('status', 'in', ['accountant','accounts','manager','head','reject','paid'])]}"/>
+                                   attrs="{'readonly':['|',('make_visible_teacher', '=', True),('status', 'in', ['accountant','head_assign','accounts','manager','reject','paid'])]}"/>
                             <field name="stream"
-                                   attrs="{'readonly':['|',('make_visible_teacher', '=', True),('status', 'in', ['accountant','accounts','manager','head','reject','paid'])]}"/>
+                                   attrs="{'readonly':['|',('make_visible_teacher', '=', True),('status', 'in', ['accountant','accounts','manager','reject','paid'])]}"/>
                             <field name="attended_class"
-                                   attrs="{'readonly':['|',('make_visible_teacher', '=', True),('status', 'in', ['accountant','accounts','manager','head','reject','paid'])]}"/>
+                                   attrs="{'readonly':['|',('make_visible_teacher', '=', True),('status', 'in', ['accountant','head_assign','accounts','manager','reject','paid'])]}"/>
                             <field name="total_class"
-                                   attrs="{'readonly':['|',('make_visible_teacher', '=', True),('status', 'in', ['accountant','accounts','manager','head','reject','paid'])]}"/>
+                                   attrs="{'readonly':['|',('make_visible_teacher', '=', True),('status', 'in', ['accountant','head_assign','accounts','manager','reject','paid'])]}"/>
                             <field name="session_completed"
-                                   attrs="{'readonly':['|',('make_visible_teacher', '=', True),('status', 'in', ['accountant','accounts','manager','head','reject','paid'])]}"/>
+                                   attrs="{'readonly':['|',('make_visible_teacher', '=', True),('status', 'in', ['accountant','head_assign','accounts','manager','reject','paid'])]}"/>
                             <field name="part_attended"
-                                   attrs="{'readonly':['|',('make_visible_teacher', '=', True),('status', 'in', ['accountant','accounts','manager','head','reject','paid'])]}"/>
+                                   attrs="{'readonly':['|',('make_visible_teacher', '=', True),('status', 'in', ['accountant','accounts','head_assign','manager','reject','paid'])]}"/>
                             <field name="admission_officer"
-                                   attrs="{'readonly':[('status', 'in', ['accountant','accounts','teacher','head','reject','paid'])]}"/>
+                                   attrs="{'readonly':[('status', 'in', ['accountant','accounts','head_assign','teacher','reject','paid'])]}"/>
                             <field name="board_registration"
-                                   attrs="{'readonly':['|','|',('make_visible_teacher', '=', True),('board_check', '=', False),('status', 'in', ['accountant','accounts','manager','head','reject','paid'])], 'invisible':[('board_check', '=', False)]}"/>
+                                   attrs="{'readonly':['|','|',('make_visible_teacher', '=', True),('board_check', '=', False),('status', 'in', ['accountant','head_assign','accounts','manager','head','reject','paid'])], 'invisible':[('board_check', '=', False)]}"/>
 
 
                         </group>
