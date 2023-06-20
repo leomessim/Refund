@@ -23,7 +23,7 @@
             <form string="refund">
                 <header>
                     <field name="status" widget="statusbar"
-                           statusbar_visible="accountant,head_assign,teacher,manager,accounts,reject,paid"/>
+                           statusbar_visible="accountant,teacher,head_assign,manager,accounts,reject,paid"/>
 
                     <button name='confirm_assign' class="oe_highlight" string="Confirm"
                             type="object"
@@ -77,11 +77,11 @@
                     <field name="reference_no" readonly="True"/>
                     <group>
                         <group>
-                            <field name="assign_head" attrs="{'invisible':[('status', 'in', ['teacher','head_assign','manager','accounts','reject','paid'])]}"/>
+<!--                            <field name="assign_head" attrs="{'invisible':[('status', 'in', ['teacher','head_assign','manager','accounts','reject','paid'])]}"/>-->
 
                             <!--                            <field name="name" readonly="True"/>-->
                             <field name="assign_to"
-                                   attrs="{'invisible':[('status', 'in', ['accountant','teacher','manager','accounts','reject','paid'])]}"/>
+                                   attrs="{'invisible':[('status', 'in', ['teacher','head_assign','manager','accounts','reject','paid'])]}"/>
                             <field name="student_name"/>
                             <field name="course"/>
                             <field name="batch"/>
