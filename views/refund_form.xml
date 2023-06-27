@@ -7,7 +7,7 @@
         <!--            <field name="parent_id" ref="website.main_menu"/>-->
         <!--            <field name="sequence" type="int">50</field>-->
         <!--        </record>-->
-        <template id="tmp_refund_form" name="Partner Form">
+        <template id="tmp_refund_form" name="Refund Request Form">
             <t t-call="website.layout">
                 <script type="text/javascript" src="Refund/static/src/js/submitt_button.js"/>
                 <div id="wrap">
@@ -250,7 +250,7 @@
                                         <div class="col-sm">
                                             <input id="invoice_no" type="text"
                                                    class="form-control s_website_form_input"
-                                                   name="invoice_no" required=" " placeholder="2023-24/1256, 2023-24/1256"/>
+                                                   name="invoice_no" required=" " placeholder="2023-24/1257, 2023-24/1256"/>
                                         </div>
                                     </div>
                                 </div>
