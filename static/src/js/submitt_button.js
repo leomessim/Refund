@@ -1,6 +1,6 @@
 document.getElementById("submit").style.display = "none";
 console.log('loaded again')
-odoo.define('refund_logic.Sample', function(require){
+odoo.define('Refund.Sample', function(require){
     "use strict"
     var rpc =require("web.rpc");
     document.getElementById("vehicle1").addEventListener("click", function() {

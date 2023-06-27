@@ -14,7 +14,7 @@ class StudentRefund(models.Model):
     reference_no = fields.Char(string="Sequence Number", readonly=True, required=True,
                                copy=False, default='New')
 
-    amount = fields.Float(string='Amount', readonly=True)
+    amount = fields.Text(string='Amount', readonly=True)
     batch = fields.Char(string='Batch', readonly=True)
     course = fields.Many2one('logic.courses', string='Course', readonly=True)
     email = fields.Char(string='Email', readonly=True)
@@ -35,8 +35,8 @@ class StudentRefund(models.Model):
     branch = fields.Char('Branch', readonly=True)
     student_admission_no = fields.Char('Admission number', readonly=True)
     parent_number = fields.Char('Parent number', readonly=True)
-    invoice_number = fields.Char('Invoice number', readonly=True)
-    invoice_date = fields.Date('Invoice date', readonly=True)
+    invoice_number = fields.Text('Invoice number', readonly=True)
+    invoice_date = fields.Text('Invoice date', readonly=True)
     sat_class = fields.Integer(string='How many days he sat in the class')
     teacher_reason = fields.Text('Remarks for teacher')
     head_reason = fields.Text('Remarks of head')

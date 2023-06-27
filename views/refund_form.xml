@@ -229,9 +229,9 @@
                                             </span>
                                         </label>
                                         <div class="col-sm">
-                                            <input id="amount" type="amount"
+                                            <input id="amount" type="text"
                                                    class="form-control s_website_form_input"
-                                                   name="amount" required=" "/>
+                                                   name="amount" required="" placeholder="30000, 25000"/>
                                         </div>
                                     </div>
                                 </div>
@@ -248,9 +248,9 @@
                                             </span>
                                         </label>
                                         <div class="col-sm">
-                                            <input id="invoice_no" type="invoice_no"
+                                            <input id="invoice_no" type="text"
                                                    class="form-control s_website_form_input"
-                                                   name="invoice_no" required=" "/>
+                                                   name="invoice_no" required=" " placeholder="2023-24/1256, 2023-24/1256"/>
                                         </div>
                                     </div>
                                 </div>
@@ -267,9 +267,9 @@
                                             </span>
                                         </label>
                                         <div class="col-sm">
-                                            <input id="invoice_date" type="Date"
+                                            <input id="invoice_date" type="text"
                                                    class="form-control s_website_form_input"
-                                                   name="invoice_date" placeholder="YYYY-MM-DD" required=" "/>
+                                                   name="invoice_date" placeholder="2023-06-25, 2023-06-27" required=" "/>
                                         </div>
                                     </div>
                                 </div>
