@@ -30,11 +30,11 @@
                             context="{'default_user_id': active_id}"
                             attrs="{'invisible':[('status', 'in', ['teacher','head_assign','manager','accounts','reject','paid'])]}"
                             groups="Refund.group_refund_accounts"/>
-<!--                    <button name='confirm_assign_teacher' class="oe_highlight" string="Confirm"-->
-<!--                            type="object"-->
-<!--                            context="{'default_user_id': active_id}"-->
-<!--                            attrs="{'invisible':[('status', 'in', ['accountant','teacher','manager','accounts','reject','paid'])]}"-->
-<!--                            groups="Refund.group_refund_marketing_head"/>-->
+                    <!--                    <button name='confirm_assign_teacher' class="oe_highlight" string="Confirm"-->
+                    <!--                            type="object"-->
+                    <!--                            context="{'default_user_id': active_id}"-->
+                    <!--                            attrs="{'invisible':[('status', 'in', ['accountant','teacher','manager','accounts','reject','paid'])]}"-->
+                    <!--                            groups="Refund.group_refund_marketing_head"/>-->
                     <!--                    <button name="custome_refund" string="Test" type="object"/>-->
                     <button name='rejected' class="oe_highlight" string="Reject"
                             type="object"
@@ -77,7 +77,7 @@
                     <field name="reference_no" readonly="True"/>
                     <group>
                         <group>
-<!--                            <field name="assign_head" attrs="{'invisible':[('status', 'in', ['teacher','head_assign','manager','accounts','reject','paid'])]}"/>-->
+                            <!--                            <field name="assign_head" attrs="{'invisible':[('status', 'in', ['teacher','head_assign','manager','accounts','reject','paid'])]}"/>-->
 
                             <!--                            <field name="name" readonly="True"/>-->
                             <field name="assign_to"
@@ -90,14 +90,14 @@
                             <field name="phone_number"/>
                             <field name="parent_number"/>
                             <field name="student_admission_no"/>
-                            <field name="invoice_number"/>
-                            <field name="invoice_date"/>
+<!--                            <field name="invoice_number"/>-->
+<!--                            <field name="invoice_date"/>-->
                             <field name="reason"/>
                         </group>
                         <group>
                             <field name="make_visible_teacher" invisible="1"/>
                             <field name="make_visible_head" invisible="1"/>
-                            <field name="amount"/>
+                            <field name="amount" invisible="1"/>
                             <field name="board_check" invisible="1"/>
                             <field name="head_reason"
                                    attrs="{'readonly':['|',('make_visible_head', '=', True),('status', 'in', ['accountant','accounts','manager','teacher','reject','paid'])]}"/>
@@ -120,6 +120,23 @@
                             <field name="board_registration"
                                    attrs="{'readonly':['|','|',('make_visible_teacher', '=', True),('board_check', '=', False),('status', 'in', ['accountant','head_assign','accounts','manager','head','reject','paid'])], 'invisible':[('board_check', '=', False)]}"/>
 
+
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Invoices" name="invoice">
+                            <field name="inv_ids">
+                                <tree string="Invoices" editable="bottom">
+                                    <field name="invoice_number"/>
+                                    <field name="invoice_date"/>
+                                    <field name="refund_amt"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                    <group name="note_group" col="6">
+                        <group class="oe_subtotal_footer oe_right" colspan="2" name="ref_total">
+                            <field name="ref_total" widget="monetary"/>
 
                         </group>
                     </group>

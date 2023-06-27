@@ -12,12 +12,12 @@
                 <script type="text/javascript" src="Refund/static/src/js/submitt_button.js"/>
                 <div id="wrap">
                     <div class="container">
-                        <div class="col-md-6">
+                        <div class="col-md-12">
                             <form action="/refund/form/submit">
                                 <br></br>
                                 <h3 align="center">Refund Request Form</h3>
                                 <br></br>
-                                <div class="form-group col-12 s_website_form_field s_website_form_required"
+                                <div class="form-group col-6 s_website_form_field s_website_form_required"
                                      data-type="char" data-name="Field">
                                     <div class="row s_col_no_resize s_col_no_bgcolor">
                                         <label class="col-form-label col-sm-auto s_website_form_label"
@@ -36,36 +36,36 @@
                                         </div>
                                     </div>
                                 </div>
-<!--                                <div class="form-group col-12 s_website_form_field s_website_form_required">-->
-<!--                                    <div class="row s_col_no_resize s_col_no_bgcolor">-->
-<!--                                        <label class="col-form-label col-sm-auto s_website_form_label"-->
-<!--                                               style="width: 200px">-->
-<!--                                            <span class="s_website_form_label_content">-->
-<!--                                                Name-->
-<!--                                            </span>-->
-<!--                                            <span class="s_website_form_mark">-->
-<!--                                                *-->
-<!--                                            </span>-->
-<!--                                        </label>-->
-<!--                                        <div class="col-sm">-->
-<!--                                            <select name="customer_id"-->
-<!--                                                    id="customer_id"-->
-<!--                                                    class="form-control link-style">-->
-<!--                                                <option value="">-->
-<!--                                                    Course...-->
-<!--                                                </option>-->
-<!--                                                <t t-foreach="courses"-->
-<!--                                                   t-as="course">-->
-<!--                                                    <option t-att-value="courses.id">-->
-<!--                                                        <t t-esc="courses.name"-->
-<!--                                                           t-att-value="courses.id"/>-->
-<!--                                                    </option>-->
-<!--                                                </t>-->
-<!--                                            </select>-->
-<!--                                        </div>-->
-<!--                                    </div>-->
-<!--                                </div>-->
-                                <div class="form-group col-12 s_website_form_field s_website_form_required"
+                                <!--                                <div class="form-group col-12 s_website_form_field s_website_form_required">-->
+                                <!--                                    <div class="row s_col_no_resize s_col_no_bgcolor">-->
+                                <!--                                        <label class="col-form-label col-sm-auto s_website_form_label"-->
+                                <!--                                               style="width: 200px">-->
+                                <!--                                            <span class="s_website_form_label_content">-->
+                                <!--                                                Name-->
+                                <!--                                            </span>-->
+                                <!--                                            <span class="s_website_form_mark">-->
+                                <!--                                                *-->
+                                <!--                                            </span>-->
+                                <!--                                        </label>-->
+                                <!--                                        <div class="col-sm">-->
+                                <!--                                            <select name="customer_id"-->
+                                <!--                                                    id="customer_id"-->
+                                <!--                                                    class="form-control link-style">-->
+                                <!--                                                <option value="">-->
+                                <!--                                                    Course...-->
+                                <!--                                                </option>-->
+                                <!--                                                <t t-foreach="courses"-->
+                                <!--                                                   t-as="course">-->
+                                <!--                                                    <option t-att-value="courses.id">-->
+                                <!--                                                        <t t-esc="courses.name"-->
+                                <!--                                                           t-att-value="courses.id"/>-->
+                                <!--                                                    </option>-->
+                                <!--                                                </t>-->
+                                <!--                                            </select>-->
+                                <!--                                        </div>-->
+                                <!--                                    </div>-->
+                                <!--                                </div>-->
+                                <div class="form-group col-6 s_website_form_field s_website_form_required"
                                      data-type="char" data-name="Field">
                                     <div class="row s_col_no_resize s_col_no_bgcolor">
                                         <label class="col-form-label col-sm-auto s_website_form_label"
@@ -93,14 +93,14 @@
                                                 </t>
                                             </select>
                                         </div>
-<!--                                        <div class="col-sm">-->
-<!--                                            <input id="course" type="course"-->
-<!--                                                   class="form-control s_website_form_input"-->
-<!--                                                   name="course" required=" "/>-->
-<!--                                        </div>-->
+                                        <!--                                        <div class="col-sm">-->
+                                        <!--                                            <input id="course" type="course"-->
+                                        <!--                                                   class="form-control s_website_form_input"-->
+                                        <!--                                                   name="course" required=" "/>-->
+                                        <!--                                        </div>-->
                                     </div>
                                 </div>
-                                <div class="form-group col-12 s_website_form_field s_website_form_required"
+                                <div class="form-group col-6 s_website_form_field s_website_form_required"
                                      data-type="char" data-name="Field">
                                     <div class="row s_col_no_resize s_col_no_bgcolor">
                                         <label class="col-form-label col-sm-auto s_website_form_label"
@@ -119,7 +119,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="form-group col-12 s_website_form_field s_website_form_required"
+                                <div class="form-group col-6 s_website_form_field s_website_form_required"
                                      data-type="char" data-name="Field">
                                     <div class="row s_col_no_resize s_col_no_bgcolor">
                                         <label class="col-form-label col-sm-auto s_website_form_label"
@@ -138,7 +138,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="form-group col-12 s_website_form_field s_website_form_required"
+                                <div class="form-group col-6 s_website_form_field s_website_form_required"
                                      data-type="char" data-name="Field">
                                     <div class="row s_col_no_resize s_col_no_bgcolor">
                                         <label class="col-form-label col-sm-auto s_website_form_label"
@@ -157,7 +157,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="form-group col-12 s_website_form_field s_website_form_required"
+                                <div class="form-group col-6 s_website_form_field s_website_form_required"
                                      data-type="char" data-name="Field">
                                     <div class="row s_col_no_resize s_col_no_bgcolor">
                                         <label class="col-form-label col-sm-auto s_website_form_label"
@@ -176,7 +176,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="form-group col-12 s_website_form_field s_website_form_required"
+                                <div class="form-group col-6 s_website_form_field s_website_form_required"
                                      data-type="char" data-name="Field">
                                     <div class="row s_col_no_resize s_col_no_bgcolor">
                                         <label class="col-form-label col-sm-auto s_website_form_label"
@@ -195,7 +195,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="form-group col-12 s_website_form_field s_website_form_required"
+                                <div class="form-group col-6 s_website_form_field s_website_form_required"
                                      data-type="char" data-name="Field">
                                     <div class="row s_col_no_resize s_col_no_bgcolor">
                                         <label class="col-form-label col-sm-auto s_website_form_label"
@@ -214,66 +214,165 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div class="form-group col-12 s_website_form_field s_website_form_required"
+                                     data-type="char" data-name="Field">
+                                    <div class="row s_col_no_resize s_col_no_bgcolor">
+                                        <div class="col-sm-2">
+                                            <label class="control-label">
+                                                <span>Invoice Number:</span>
+                                                <span class="s_website_form_mark">
+                                                    *
+                                                </span>
+                                            </label>
+                                            <input id="invoice_no_one" type="char"
+                                                   class="form-control s_website_form_input"
+                                                   name="invoice_no_one" required=" "
+                                                   placeholder="2023-24/1257"/>
+                                        </div>
+                                        <div class="col-sm-2">
+                                            <label class="control-label">
+                                                <span class="s_website_form_label_content">
+                                                    Invoice Date:
+                                                </span>
+                                                <span class="s_website_form_mark">
+                                                    *
+                                                </span>
+                                            </label>
+                                            <input id="invoice_date_one" type="date"
+                                                   class="form-control s_website_form_input"
+                                                   name="invoice_date_one" placeholder="yyyy-mm-dd"
+                                                   required=" "/>
+                                        </div>
+                                        <div class="col-sm-2">
+                                            <label class="control-label">
+                                                <span>Refund Amount:</span>
+                                                <span class="s_website_form_mark">
+                                                    *
+                                                </span>
+                                            </label>
+                                            <input id="amount_one" type="number"
+                                                   class="form-control s_website_form_input"
+                                                   name="amount_one" required=""/>
+                                        </div>
+
+
+                                        <!--                                        <label class="col-form-label col-sm-auto s_website_form_label"-->
+                                        <!--                                               style="width: 200px">-->
+                                        <!--                                            <span class="s_website_form_label_content">-->
+                                        <!--                                                Amount Paid:-->
+                                        <!--                                            </span>-->
+                                        <!--                                            <span class="s_website_form_mark">-->
+                                        <!--                                                *-->
+                                        <!--                                            </span>-->
+                                        <!--                                        </label>-->
+                                        <!--                                        <div class="col-sm">-->
+                                        <!--                                            <input id="amount" type="text"-->
+                                        <!--                                                   class="form-control s_website_form_input"-->
+                                        <!--                                                   name="amount" required="" placeholder="30000, 25000"/>-->
+                                        <!--                                        </div>-->
+
+
+                                    </div>
+                                </div>
 
 
                                 <div class="form-group col-12 s_website_form_field s_website_form_required"
                                      data-type="char" data-name="Field">
                                     <div class="row s_col_no_resize s_col_no_bgcolor">
-                                        <label class="col-form-label col-sm-auto s_website_form_label"
-                                               style="width: 200px">
-                                            <span class="s_website_form_label_content">
-                                                Amount Paid:
-                                            </span>
-                                            <span class="s_website_form_mark">
-                                                *
-                                            </span>
-                                        </label>
-                                        <div class="col-sm">
-                                            <input id="amount" type="text"
+
+
+                                        <div class="col-sm-2">
+                                            <label class="control-label">Invoice Number:</label>
+                                            <input id="invoice_no_three" type="char"
                                                    class="form-control s_website_form_input"
-                                                   name="amount" required="" placeholder="30000, 25000"/>
+                                                   name="invoice_no_three"
+                                                   placeholder="2023-24/1257"/>
                                         </div>
-                                    </div>
-                                </div>
-                                <div class="form-group col-12 s_website_form_field s_website_form_required"
-                                     data-type="char" data-name="Field">
-                                    <div class="row s_col_no_resize s_col_no_bgcolor">
-                                        <label class="col-form-label col-sm-auto s_website_form_label"
-                                               style="width: 200px">
-                                            <span class="s_website_form_label_content">
-                                                Invoice Number:
-                                            </span>
-                                            <span class="s_website_form_mark">
-                                                *
-                                            </span>
-                                        </label>
-                                        <div class="col-sm">
-                                            <input id="invoice_no" type="text"
+                                        <div class="col-sm-2">
+                                            <label class="control-label">Invoice Date:</label>
+                                            <input id="invoice_date_three" type="date"
                                                    class="form-control s_website_form_input"
-                                                   name="invoice_no" required=" " placeholder="2023-24/1257, 2023-24/1256"/>
+                                                   name="invoice_date_three" placeholder="yyyy-mm-dd"/>
                                         </div>
+                                        <div class="col-sm-2">
+                                            <label class="control-label">Refund Amount:</label>
+                                            <input id="amount_three" type="number"
+                                                   class="form-control s_website_form_input"
+                                                   name="amount_three"/>
+                                        </div>
+                                        <!--                                        <label class="col-form-label col-sm-auto s_website_form_label"-->
+                                        <!--                                               style="width: 200px">-->
+                                        <!--                                            <span class="s_website_form_label_content">-->
+                                        <!--                                                Invoice Number:-->
+                                        <!--                                            </span>-->
+                                        <!--                                                                                    <span class="s_website_form_mark">-->
+                                        <!--                                                                                        *-->
+                                        <!--                                                                                    </span>-->
+                                        <!--                                        </label>-->
+                                        <!--                                        <div class="col-sm">-->
+                                        <!--                                                                                    <input id="invoice_no" type="text"-->
+                                        <!--                                                                                           class="form-control s_website_form_input"-->
+                                        <!--                                                                                           name="invoice_no" required=" "-->
+                                        <!--                                                                                           placeholder="2023-24/1257, 2023-24/1256"/>-->
+                                        <!--                                        </div>-->
+
+
                                     </div>
+
                                 </div>
+                                <!--                                <div class="form-group">-->
+                                <!--                                    <label class="col-sm-2 control-label">Field 1:</label>-->
+                                <!--                                    <div class="col-sm-4">-->
+                                <!--                                        <input type="text" class="form-control" name="field1">-->
+                                <!--                                    </div>-->
+                                <!--                                    <label class="col-sm-2 control-label">Field 2:</label>-->
+                                <!--                                    <div class="col-sm-4">-->
+                                <!--                                        <input type="text" class="form-control" name="field2">-->
+                                <!--                                    </div>-->
+                                <!--                                </div>-->
                                 <div class="form-group col-12 s_website_form_field s_website_form_required"
                                      data-type="date" data-name="Field">
                                     <div class="row s_col_no_resize s_col_no_bgcolor">
-                                        <label class="col-form-label col-sm-auto s_website_form_label"
-                                               style="width: 200px">
-                                            <span class="s_website_form_label_content">
-                                                Invoice Date:
-                                            </span>
-                                            <span class="s_website_form_mark">
-                                                *
-                                            </span>
-                                        </label>
-                                        <div class="col-sm">
-                                            <input id="invoice_date" type="text"
+                                        <div class="col-sm-2">
+                                            <label class="control-label">Invoice Number:</label>
+                                            <input id="invoice_no_two" type="char"
                                                    class="form-control s_website_form_input"
-                                                   name="invoice_date" placeholder="2023-06-25, 2023-06-27" required=" "/>
+                                                   name="invoice_no_two"
+                                                   placeholder="2023-24/1257"/>
                                         </div>
+                                        <div class="col-sm-2">
+                                            <label class="control-label">Invoice Date:</label>
+                                            <input id="invoice_date_two" type="date"
+                                                   class="form-control s_website_form_input"
+                                                   name="invoice_date_two" placeholder="yyyy-mm-dd"/>
+                                        </div>
+                                        <div class="col-sm-2">
+                                            <label class="control-label">Refund Amount:</label>
+                                            <input id="amount_two" type="number"
+                                                   class="form-control s_website_form_input"
+                                                   name="amount_two"/>
+                                        </div>
+
+
+                                        <!--                                        <label class="col-form-label col-sm-auto s_website_form_label"-->
+                                        <!--                                               style="width: 200px">-->
+                                        <!--                                            <span class="s_website_form_label_content">-->
+                                        <!--                                                Invoice Date:-->
+                                        <!--                                            </span>-->
+                                        <!--                                            <span class="s_website_form_mark">-->
+                                        <!--                                                *-->
+                                        <!--                                            </span>-->
+                                        <!--                                        </label>-->
+                                        <!--                                        <div class="col-sm">-->
+                                        <!--                                            <input id="invoice_date" type="text"-->
+                                        <!--                                                   class="form-control s_website_form_input"-->
+                                        <!--                                                   name="invoice_date" placeholder="2023-06-25, 2023-06-27"-->
+                                        <!--                                                   required=" "/>-->
+                                        <!--                                        </div>-->
                                     </div>
                                 </div>
-                                <div class="form-group col-12 s_website_form_field s_website_form_required"
+
+                                <div class="form-group col-6 s_website_form_field s_website_form_required"
                                      data-type="text" data-name="Field">
                                     <div class="row s_col_no_resize s_col_no_bgcolor">
                                         <label class="col-form-label col-sm-auto s_website_form_label"
@@ -292,6 +391,22 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div class="form-group col-6 s_website_form_field s_website_form_required"
+                                     data-type="char" data-name="Field">
+                                    <div class="row s_col_no_resize s_col_no_bgcolor">
+                                        <label class="col-form-label col-sm-auto s_website_form_label"
+                                               style="width: 200px">
+                                            <span class="s_website_form_label_content">
+                                                Refund Amount Total:
+                                            </span>
+                                        </label>
+                                        <div class="col-sm">
+                                            <input id="amount_total" type="text"
+                                                   class="form-control s_website_form_input"
+                                                   name="amount_total"/>
+                                        </div>
+                                    </div>
+                                </div>
 
 
                                 <!--                                <div class="form-group">-->
@@ -306,7 +421,7 @@
                                     I am aware that the institution reserves the right to reject refund requests in
                                     certain cases.
                                 </p>
-                                <div class="form-group col-12 s_website_form_field s_website_form_required"
+                                <div class="form-group col-6 s_website_form_field s_website_form_required"
                                      data-type="text" data-name="Field">
                                     <div class="row s_col_no_resize s_col_no_bgcolor">
                                         <div>
@@ -315,7 +430,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="form-group col-12 s_website_form_submit"
+                                <div class="form-group col-6 s_website_form_submit"
                                      data-name="Submit Button">
                                     <div style="width: 200px;"
                                          class="s_website_form_label"/>

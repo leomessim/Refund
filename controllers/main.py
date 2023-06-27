@@ -17,6 +17,30 @@ class PartnerForm(http.Controller):
 
     @http.route(['/refund/form/submit'], type='http', auth="public", website=True, csrf=False)
     def customer_form_submit(self, **kw):
+        abc = []
+        res_list = {
+            'invoice_number': kw.get('invoice_no_one'),
+            'invoice_date': kw.get('invoice_date_one'),
+            'refund_amt': kw.get('amount_one'),
+
+        }
+        res_list_two = {
+            'invoice_number': kw.get('invoice_no_two'),
+            'invoice_date': kw.get('invoice_date_two'),
+            'refund_amt': kw.get('amount_two'),
+
+        }
+        res_list_three = {
+            'invoice_number': kw.get('invoice_no_three'),
+
+            'invoice_date': kw.get('invoice_date_three'),
+            'refund_amt': kw.get('amount_three'),
+
+        }
+        abc.append((0, 0, res_list))
+        abc.append((0, 0, res_list_two))
+        abc.append((0, 0, res_list_three))
+
         request.env['student.refund'].sudo().create({
             'student_name': kw.get('student_name'),
             'batch': kw.get('batch'),
@@ -28,8 +52,7 @@ class PartnerForm(http.Controller):
             'branch': kw.get('branch'),
             'student_admission_no': kw.get('admission_no'),
             'parent_number': kw.get('parent_no'),
-            'invoice_number': kw.get('invoice_no'),
-            'invoice_date': kw.get('invoice_date')
+            'inv_ids': abc
 
 
             # 'sale_order_id': kw.get('sale_order')

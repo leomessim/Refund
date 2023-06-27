@@ -47,8 +47,9 @@
                             <field name="batch"/>
                             <field name="course"/>
                             <field name="student_admission_no"/>
-                            <field name="invoice_number"/>
-                            <field name="invoice_date"/>
+                            <field name="id_refund_record" invisible="1"/>
+<!--                            <field name="invoice_number"/>-->
+<!--                            <field name="invoice_date"/>-->
 
                             <!--                            <field name="refund_date"/>-->
                             <!--                            <field name="transaction_id"/>-->

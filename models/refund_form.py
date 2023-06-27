@@ -14,7 +14,7 @@ class StudentRefund(models.Model):
     reference_no = fields.Char(string="Sequence Number", readonly=True, required=True,
                                copy=False, default='New')
 
-    amount = fields.Text(string='Amount', readonly=True)
+
     batch = fields.Char(string='Batch', readonly=True)
     course = fields.Many2one('logic.courses', string='Course', readonly=True)
     email = fields.Char(string='Email', readonly=True)
@@ -35,8 +35,8 @@ class StudentRefund(models.Model):
     branch = fields.Char('Branch', readonly=True)
     student_admission_no = fields.Char('Admission number', readonly=True)
     parent_number = fields.Char('Parent number', readonly=True)
-    invoice_number = fields.Text('Invoice number', readonly=True)
-    invoice_date = fields.Text('Invoice date', readonly=True)
+    # invoice_number = fields.Text('Invoice number', readonly=True)
+    # invoice_date = fields.Text('Invoice date', readonly=True)
     sat_class = fields.Integer(string='How many days he sat in the class')
     teacher_reason = fields.Text('Remarks for teacher')
     head_reason = fields.Text('Remarks of head')
@@ -56,6 +56,28 @@ class StudentRefund(models.Model):
     board_registration = fields.Selection([('completed', 'Completed'),
                                            ('not', 'Not')], string='Board registration')
     board_check = fields.Boolean()
+    inv_ids = fields.One2many('refund.invoice.details', 'inv_id', string='Invoices')
+
+    @api.depends('inv_ids.refund_amt')
+    def _amount_all(self):
+        """
+        Compute the total amounts of the SO.
+        """
+        total = 0
+        for order in self.inv_ids:
+            total += order.refund_amt
+        self.update({
+            'ref_total': total,
+        })
+
+    ref_total = fields.Float(string='Total Refund', compute='_amount_all', store=True)
+
+    @api.depends('ref_total')
+    def total_amount_refund(self):
+        for rec in self:
+            rec.amount = rec.ref_total
+
+    amount = fields.Float(string='Amount', readonly=True, compute='total_amount_refund', store=True)
 
     def confirm_assign(self):
         if not self.assign_to:
@@ -165,12 +187,13 @@ class StudentRefund(models.Model):
         self.message_post(body="Marketing Manager is approved")
         self.env['refund.payment'].create({
             'name': self.student_name,
-            'amount': self.amount,
+            'amount': self.ref_total,
             'batch': self.batch,
             'course': self.course.id,
             'student_admission_no': self.student_admission_no,
-            'invoice_number': self.invoice_number,
-            'invoice_date': self.invoice_date,
+            'id_refund_record': self.id,
+            # 'invoice_number': self.invoice_number,
+            # 'invoice_date': self.invoice_date,
 
         }
         )
@@ -255,3 +278,13 @@ class PaymentDetails(models.Model):
     refund_amount = fields.Float(string='Refund amount')
     refund_date = fields.Date(string='Refund date')
     transaction_id = fields.Integer(string='Transaction id')
+
+
+class RefundInvoiceDetails(models.Model):
+    _name = 'refund.invoice.details'
+    _inherit = 'mail.thread'
+
+    invoice_number = fields.Char(string='Invoice Number')
+    invoice_date = fields.Date(string='Invoice Date')
+    refund_amt = fields.Integer(string='Refund Amount')
+    inv_id = fields.Many2one('student.refund', string='Invoice')

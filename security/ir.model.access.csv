@@ -6,6 +6,14 @@ access_refund_marketing,access.student.refund.marketing,model_student_refund,Ref
 access_res_class_accountant,access.logic.leads.accounts,model_student_refund,Refund.group_refund_accounts,1,1,1,1
 access_refund_accountant,access.logic.leads.accounts,model_refund_payment,Refund.group_refund_accounts,1,1,1,1
 access_refund_manager_app,access.logic.leads.accounts,model_refund_payment,Refund.refund_manager,0,1,1,0
+access_refund_base,access.logic.leads.accounts,model_refund_invoice_details,Refund.refund_manager,1,1,1,1
+access_refund_base_teacher,access.logic.leads.accounts,model_refund_invoice_details,Refund.group_refund_teacher,1,1,1,1
+access_refund_base_head,access.logic.leads.accounts,model_refund_invoice_details,Refund.group_refund_marketing_head,1,1,1,1
+access_refund_base_acc,access.logic.leads.accounts,model_refund_invoice_details,Refund.group_refund_accounts,1,1,1,1
+
+
+
+
 
 
 

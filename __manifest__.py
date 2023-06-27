@@ -13,6 +13,10 @@
         'views/refund_payment_details.xml',
         # 'views/activities.xml'
     ],
+    'assets': {
+        'web.assets_backend': [
+            'Refund/static/src/js/submitt_button.js'],
+    },
 
     'demo': [],
     'summary': "logic_refund",
