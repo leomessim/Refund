@@ -38,8 +38,10 @@ class PartnerForm(http.Controller):
 
         }
         abc.append((0, 0, res_list))
-        abc.append((0, 0, res_list_two))
-        abc.append((0, 0, res_list_three))
+        if kw.get('invoice_date_two') != '':
+            abc.append((0, 0, res_list_two))
+        if kw.get('invoice_date_three') != '':
+            abc.append((0, 0, res_list_three))
 
         request.env['student.refund'].sudo().create({
             'student_name': kw.get('student_name'),
