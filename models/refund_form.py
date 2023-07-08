@@ -91,10 +91,19 @@ class StudentRefund(models.Model):
             other_activity_ids = self.env['mail.activity'].search([('res_id', '=', self.id), (
                 'activity_type_id', '=', self.env.ref('Refund.mail_activity_refund_alert_custome').id)])
             other_activity_ids.unlink()
+
             if self.course.board_registration == True:
                 self.board_check = True
             else:
                 self.board_check = False
+        # return {
+        #     'effect': {
+        #         'fadeout': 'slow',
+        #         'message': 'Teacher Assigned',
+        #         'type': 'rainbow_man',
+        #     }
+        # }
+
         # users = self.env.ref('refund_logic.group_refund_teacher').users
         # activity_type = self.env.ref('refund_logic.mail_activity_refund_alert_custome')
         # self.activity_schedule('refund_logic.mail_activity_refund_alert_custome', user_id=self.assign_to.id,
