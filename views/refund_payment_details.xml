@@ -89,6 +89,10 @@
         <field name="arch" type="xml">
             <tree>
                 <field name="name"/>
+                <field name="amount" sum="Total"/>
+                <field name="course"/>
+                <field name="date_of_refund"/>
+                <field name="total_refund" sum="Total"/>
 
             </tree>
 

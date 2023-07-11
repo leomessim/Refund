@@ -1,15 +1,17 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
     <record id="refund_data_tree" model="ir.ui.view">
-        <field name="name">Refund_tree</field>
+        <field name="name">Refund</field>
         <field name="model">student.refund</field>
         <field name="arch" type="xml">
             <tree>
                 <field name="reference_no"/>
+                <field name="create_date" string="Refund Date" type="Date"/>
                 <field name="student_name"/>
                 <field name="batch"/>
                 <field name="course"/>
                 <field name="reason"/>
+                <field name="ref_total" sum="Total"/>
                 <field name="status"/>
             </tree>
 
