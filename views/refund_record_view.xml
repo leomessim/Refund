@@ -92,8 +92,8 @@
                             <field name="phone_number"/>
                             <field name="parent_number"/>
                             <field name="student_admission_no"/>
-<!--                            <field name="invoice_number"/>-->
-<!--                            <field name="invoice_date"/>-->
+                            <!--                            <field name="invoice_number"/>-->
+                            <!--                            <field name="invoice_date"/>-->
                             <field name="reason"/>
                         </group>
                         <group>
@@ -121,8 +121,6 @@
                                    attrs="{'readonly':[('status', 'in', ['accountant','accounts','head_assign','teacher','reject','paid'])]}"/>
                             <field name="board_registration"
                                    attrs="{'readonly':['|','|',('make_visible_teacher', '=', True),('board_check', '=', False),('status', 'in', ['accountant','head_assign','accounts','manager','head','reject','paid'])], 'invisible':[('board_check', '=', False)]}"/>
-
-
                         </group>
                     </group>
                     <notebook>
@@ -135,7 +133,18 @@
                                 </tree>
                             </field>
                         </page>
+                        <page string="Bank Details" name="bank">
+                            <group>
+                                <group>
+                                    <field name="account_number"/>
+                                    <field name="account_holder_name"/>
+                                    <field name="ifsc_code"/>
+                                    <field name="bank_name"/>
+                                </group>
+                            </group>
+                        </page>
                     </notebook>
+
                     <group name="note_group" col="6">
                         <group class="oe_subtotal_footer oe_right" colspan="2" name="ref_total">
                             <field name="ref_total" widget="monetary"/>

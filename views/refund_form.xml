@@ -17,7 +17,7 @@
                                 <br></br>
                                 <h3 align="center">Refund Request Form</h3>
                                 <br></br>
-                                <div class="form-group col-6 s_website_form_field s_website_form_required"
+                                <div class="form-group col-12 s_website_form_field s_website_form_required"
                                      data-type="char" data-name="Field">
                                     <div class="row s_col_no_resize s_col_no_bgcolor">
                                         <label class="col-form-label col-sm-auto s_website_form_label"
@@ -65,7 +65,7 @@
                                 <!--                                        </div>-->
                                 <!--                                    </div>-->
                                 <!--                                </div>-->
-                                <div class="form-group col-6 s_website_form_field s_website_form_required"
+                                <div class="form-group col-12 s_website_form_field s_website_form_required"
                                      data-type="char" data-name="Field">
                                     <div class="row s_col_no_resize s_col_no_bgcolor">
                                         <label class="col-form-label col-sm-auto s_website_form_label"
@@ -100,7 +100,7 @@
                                         <!--                                        </div>-->
                                     </div>
                                 </div>
-                                <div class="form-group col-6 s_website_form_field s_website_form_required"
+                                <div class="form-group col-12 s_website_form_field s_website_form_required"
                                      data-type="char" data-name="Field">
                                     <div class="row s_col_no_resize s_col_no_bgcolor">
                                         <label class="col-form-label col-sm-auto s_website_form_label"
@@ -119,7 +119,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="form-group col-6 s_website_form_field s_website_form_required"
+                                <div class="form-group col-12 s_website_form_field s_website_form_required"
                                      data-type="char" data-name="Field">
                                     <div class="row s_col_no_resize s_col_no_bgcolor">
                                         <label class="col-form-label col-sm-auto s_website_form_label"
@@ -138,7 +138,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="form-group col-6 s_website_form_field s_website_form_required"
+                                <div class="form-group col-12 s_website_form_field s_website_form_required"
                                      data-type="char" data-name="Field">
                                     <div class="row s_col_no_resize s_col_no_bgcolor">
                                         <label class="col-form-label col-sm-auto s_website_form_label"
@@ -157,7 +157,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="form-group col-6 s_website_form_field s_website_form_required"
+                                <div class="form-group col-12 s_website_form_field s_website_form_required"
                                      data-type="char" data-name="Field">
                                     <div class="row s_col_no_resize s_col_no_bgcolor">
                                         <label class="col-form-label col-sm-auto s_website_form_label"
@@ -176,7 +176,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="form-group col-6 s_website_form_field s_website_form_required"
+                                <div class="form-group col-12 s_website_form_field s_website_form_required"
                                      data-type="char" data-name="Field">
                                     <div class="row s_col_no_resize s_col_no_bgcolor">
                                         <label class="col-form-label col-sm-auto s_website_form_label"
@@ -195,7 +195,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="form-group col-6 s_website_form_field s_website_form_required"
+                                <div class="form-group col-12 s_website_form_field s_website_form_required"
                                      data-type="char" data-name="Field">
                                     <div class="row s_col_no_resize s_col_no_bgcolor">
                                         <label class="col-form-label col-sm-auto s_website_form_label"
@@ -211,6 +211,82 @@
                                             <input id="email" type="email"
                                                    class="form-control s_website_form_input"
                                                    name="email" required=" "/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group col-12 s_website_form_field s_website_form_required"
+                                     data-type="char" data-name="Field">
+                                    <div class="row s_col_no_resize s_col_no_bgcolor">
+                                        <label class="col-form-label col-sm-auto s_website_form_label"
+                                               style="width: 200px">
+                                            <span class="s_website_form_label_content">
+                                                Account Number:
+                                            </span>
+                                            <span class="s_website_form_mark">
+                                                *
+                                            </span>
+                                        </label>
+                                        <div class="col-sm">
+                                            <input id="account_no" type="char"
+                                                   class="form-control s_website_form_input"
+                                                   name="account_no" required=" "/>
+                                        </div>
+                                    </div>
+                                </div>
+                                 <div class="form-group col-12 s_website_form_field s_website_form_required"
+                                     data-type="char" data-name="Field">
+                                    <div class="row s_col_no_resize s_col_no_bgcolor">
+                                        <label class="col-form-label col-sm-auto s_website_form_label"
+                                               style="width: 200px">
+                                            <span class="s_website_form_label_content">
+                                                Account Holder Name:
+                                            </span>
+<!--                                            <span class="s_website_form_mark">-->
+<!--                                                *-->
+<!--                                            </span>-->
+                                        </label>
+                                        <div class="col-sm">
+                                            <input id="account_holder" type="char"
+                                                   class="form-control s_website_form_input"
+                                                   name="account_holder" required=" "/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group col-12 s_website_form_field s_website_form_required"
+                                     data-type="char" data-name="Field">
+                                    <div class="row s_col_no_resize s_col_no_bgcolor">
+                                        <label class="col-form-label col-sm-auto s_website_form_label"
+                                               style="width: 200px">
+                                            <span class="s_website_form_label_content">
+                                                IFSC Code:
+                                            </span>
+                                            <span class="s_website_form_mark">
+                                                *
+                                            </span>
+                                        </label>
+                                        <div class="col-sm">
+                                            <input id="ifsc_code" type="char"
+                                                   class="form-control s_website_form_input"
+                                                   name="ifsc_code" required=" "/>
+                                        </div>
+                                    </div>
+                                </div>
+                                  <div class="form-group col-12 s_website_form_field s_website_form_required"
+                                     data-type="char" data-name="Field">
+                                    <div class="row s_col_no_resize s_col_no_bgcolor">
+                                        <label class="col-form-label col-sm-auto s_website_form_label"
+                                               style="width: 200px">
+                                            <span class="s_website_form_label_content">
+                                                Bank Name:
+                                            </span>
+                                            <span class="s_website_form_mark">
+                                                *
+                                            </span>
+                                        </label>
+                                        <div class="col-sm">
+                                            <input id="bank_name" type="char"
+                                                   class="form-control s_website_form_input"
+                                                   name="bank_name" required=" "/>
                                         </div>
                                     </div>
                                 </div>
@@ -372,7 +448,7 @@
                                     </div>
                                 </div>
 
-                                <div class="form-group col-6 s_website_form_field s_website_form_required"
+                                <div class="form-group col-12 s_website_form_field s_website_form_required"
                                      data-type="text" data-name="Field">
                                     <div class="row s_col_no_resize s_col_no_bgcolor">
                                         <label class="col-form-label col-sm-auto s_website_form_label"
@@ -391,7 +467,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="form-group col-6 s_website_form_field s_website_form_required"
+                                <div class="form-group col-12 s_website_form_field s_website_form_required"
                                      data-type="char" data-name="Field">
                                     <div class="row s_col_no_resize s_col_no_bgcolor">
                                         <label class="col-form-label col-sm-auto s_website_form_label"

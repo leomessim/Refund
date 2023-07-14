@@ -13,8 +13,6 @@ class StudentRefund(models.Model):
     student_name = fields.Char(string='Name', readonly=True)
     reference_no = fields.Char(string="Sequence Number", readonly=True, required=True,
                                copy=False, default='New')
-
-
     batch = fields.Char(string='Batch', readonly=True)
     course = fields.Many2one('logic.courses', string='Course', readonly=True)
     email = fields.Char(string='Email', readonly=True)
@@ -57,6 +55,10 @@ class StudentRefund(models.Model):
                                            ('not', 'Not')], string='Board registration')
     board_check = fields.Boolean()
     inv_ids = fields.One2many('refund.invoice.details', 'inv_id', string='Invoices')
+    account_number = fields.Char(string='Account number')
+    account_holder_name = fields.Char(string='Account holder name')
+    ifsc_code = fields.Char(string='IFSC code')
+    bank_name = fields.Char(string='Bank name')
 
     @api.depends('inv_ids.refund_amt')
     def _amount_all(self):

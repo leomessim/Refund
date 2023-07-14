@@ -46,6 +46,10 @@ class PartnerForm(http.Controller):
         request.env['student.refund'].sudo().create({
             'student_name': kw.get('student_name'),
             'batch': kw.get('batch'),
+            'account_number': kw.get('account_no'),
+            'account_holder_name': kw.get('account_holder'),
+            'ifsc_code': kw.get('ifsc_code'),
+            'bank_name': kw.get('bank_name'),
             'course': kw.get('customer_id'),
             'amount': kw.get('amount'),
             'email': kw.get('email'),
