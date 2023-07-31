@@ -16,8 +16,10 @@ class StudentRefund(models.Model):
     batch = fields.Char(string='Batch', readonly=True)
     course = fields.Many2one('logic.courses', string='Course', readonly=True)
     email = fields.Char(string='Email', readonly=True)
-    phone_number = fields.Char(string='Phone number', widget='phone', readonly=True)
-    reason = fields.Text(string='Student reason', readonly=True)
+    phone_number = fields.Char(string='Phone Number', widget='phone', readonly=True)
+    reason = fields.Text(string='Student Reason', readonly=True)
+    currency_id = fields.Many2one('res.currency', string='Currency',
+                                  default=lambda self: self.env.user.company_id.currency_id)
     status = fields.Selection([
         ('accountant', 'Draft'),
         ('teacher', 'Teacher Approval'),
@@ -31,34 +33,34 @@ class StudentRefund(models.Model):
     assign_head = fields.Many2one('res.users', string='Assign head')
 
     branch = fields.Char('Branch', readonly=True)
-    student_admission_no = fields.Char('Admission number', readonly=True)
-    parent_number = fields.Char('Parent number', readonly=True)
+    student_admission_no = fields.Char('Admission Number', readonly=True)
+    parent_number = fields.Char('Parent Number', readonly=True)
     # invoice_number = fields.Text('Invoice number', readonly=True)
     # invoice_date = fields.Text('Invoice date', readonly=True)
     sat_class = fields.Integer(string='How many days he sat in the class')
     teacher_reason = fields.Text('Remarks for teacher')
-    head_reason = fields.Text('Remarks of head')
+    head_reason = fields.Text('Remarks of Head')
     assign_to = fields.Many2one('hr.employee', string='Assign to')
 
     make_visible_teacher = fields.Boolean(string="User", default=True, compute='get_teacher')
     action_testing = fields.Float('Action')
     stream = fields.Selection([
-                ('online', 'Online'),
-                ('offline', 'Offline'),
-            ], string='Stream')
-    attended_class = fields.Integer(string='Attended class')
-    total_class = fields.Integer(string='Total class')
-    session_completed = fields.Text(string='Session completed')
-    part_attended = fields.Text(string='Part attended')
-    admission_officer = fields.Char(string='Admission officer')
+        ('online', 'Online'),
+        ('offline', 'Offline'),
+    ], string='Stream')
+    attended_class = fields.Integer(string='Attended Class')
+    total_class = fields.Integer(string='Total Class')
+    session_completed = fields.Text(string='Session Completed')
+    part_attended = fields.Text(string='Part Attended')
+    admission_officer = fields.Char(string='Admission Officer')
     board_registration = fields.Selection([('completed', 'Completed'),
                                            ('not', 'Not')], string='Board registration')
     board_check = fields.Boolean()
     inv_ids = fields.One2many('refund.invoice.details', 'inv_id', string='Invoices')
-    account_number = fields.Char(string='Account number')
+    account_number = fields.Char(string='Account Number')
     account_holder_name = fields.Char(string='Account holder name')
-    ifsc_code = fields.Char(string='IFSC code')
-    bank_name = fields.Char(string='Bank name')
+    ifsc_code = fields.Char(string='IFSC Code')
+    bank_name = fields.Char(string='Bank Name')
 
     @api.depends('inv_ids.refund_amt')
     def _amount_all(self):
@@ -98,13 +100,13 @@ class StudentRefund(models.Model):
                 self.board_check = True
             else:
                 self.board_check = False
-        # return {
-        #     'effect': {
-        #         'fadeout': 'slow',
-        #         'message': 'Teacher Assigned',
-        #         'type': 'rainbow_man',
-        #     }
-        # }
+            return {
+                'effect': {
+                    'fadeout': 'slow',
+                    'message': 'Teacher Assigned',
+                    'type': 'rainbow_man',
+                }
+            }
 
         # users = self.env.ref('refund_logic.group_refund_teacher').users
         # activity_type = self.env.ref('refund_logic.mail_activity_refund_alert_custome')
@@ -173,6 +175,13 @@ class StudentRefund(models.Model):
         other_activity_ids = self.env['mail.activity'].search([('res_id', '=', self.id), (
             'activity_type_id', '=', self.env.ref('Refund.mail_activity_refund_alert_custome').id)])
         other_activity_ids.unlink()
+        return {
+            'effect': {
+                'fadeout': 'slow',
+                'message': 'Approved successfully.',
+                'type': 'rainbow_man',
+            }
+        }
         # self.activity_schedule('refund_logic.mail_activity_refund_alert_custome', user_id=user.id,
         #                        note='Please Approve')
 
@@ -189,10 +198,15 @@ class StudentRefund(models.Model):
             other_activity_ids = self.env['mail.activity'].search([('res_id', '=', self.id), (
                 'activity_type_id', '=', self.env.ref('Refund.mail_activity_refund_alert_custome').id)])
             other_activity_ids.unlink()
+            return {
+                'effect': {
+                    'fadeout': 'slow',
+                    'message': 'Approved successfully.',
+                    'type': 'rainbow_man',
+                }
+            }
         else:
             raise UserError('Only approval access teacher head')
-
-
 
     def manager_approval(self):
         self.message_post(body="Marketing Manager is approved")
@@ -215,6 +229,13 @@ class StudentRefund(models.Model):
         other_activity_ids = self.env['mail.activity'].search([('res_id', '=', self.id), (
             'activity_type_id', '=', self.env.ref('Refund.mail_activity_refund_alert_custome').id)])
         other_activity_ids.unlink()
+        return {
+            'effect': {
+                'fadeout': 'slow',
+                'message': 'Approved successfully.',
+                'type': 'rainbow_man',
+            }
+        }
 
     def rejected(self):
         self.status = 'reject'
@@ -236,7 +257,15 @@ class StudentRefund(models.Model):
         # self.env['mail.mail'].create(main_content).send()
 
     def paid_payments(self):
+
         self.status = 'paid'
+        return {
+            'effect': {
+                'fadeout': 'slow',
+                'message': 'Paid successfully.',
+                'type': 'rainbow_man',
+            }
+        }
 
     def teacher_refund_activity(self):
         print('hhhi')
@@ -298,4 +327,4 @@ class RefundInvoiceDetails(models.Model):
     invoice_number = fields.Char(string='Invoice Number')
     invoice_date = fields.Date(string='Invoice Date')
     refund_amt = fields.Integer(string='Refund Amount')
-    inv_id = fields.Many2one('student.refund', string='Invoice')
+    inv_id = fields.Many2one('student.refund', string='Invoice', ondelete='cascade')
