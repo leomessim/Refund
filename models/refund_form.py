@@ -20,6 +20,7 @@ class StudentRefund(models.Model):
     reason = fields.Text(string='Student Reason', readonly=True)
     currency_id = fields.Many2one('res.currency', string='Currency',
                                   default=lambda self: self.env.user.company_id.currency_id)
+    ded_ids = fields.One2many('refund.deduction', 'ded_id', string='Deduction')
     status = fields.Selection([
         ('accountant', 'Draft'),
         ('teacher', 'Teacher Approval'),
@@ -39,7 +40,7 @@ class StudentRefund(models.Model):
     # invoice_date = fields.Text('Invoice date', readonly=True)
     sat_class = fields.Integer(string='How many days he sat in the class')
     teacher_reason = fields.Text('Remarks for teacher')
-    head_reason = fields.Text('Remarks of Head')
+    head_reason = fields.Text('Remarks of Academic Head')
     assign_to = fields.Many2one('hr.employee', string='Assign to')
 
     make_visible_teacher = fields.Boolean(string="User", default=True, compute='get_teacher')
@@ -74,7 +75,34 @@ class StudentRefund(models.Model):
             'ref_total': total,
         })
 
-    ref_total = fields.Float(string='Total Refund', compute='_amount_all', store=True)
+    ref_total = fields.Float(string='Refund Requested', compute='_amount_all', store=True)
+
+    @api.depends('ded_ids.amount')
+    def _amount_deduction_all(self):
+        """
+        Compute the total amounts of the SO.
+        """
+        total_deduction = 0
+        for order in self.ded_ids:
+            total_deduction += order.amount
+        self.update({
+            'total_deduction': total_deduction,
+        })
+
+    total_deduction = fields.Float(string='Total Deduction', compute='_amount_deduction_all', store=True)
+
+    @api.depends('total_deduction','ref_total')
+    def _amount_total_refund(self):
+        """
+        Compute the total amounts of the SO.
+        """
+        for order in self:
+            total_deduction = order.ref_total - order.total_deduction
+        self.update({
+            'total_all_refund': total_deduction,
+        })
+
+    total_all_refund = fields.Float(string='Total Refund', compute='_amount_total_refund', store=True)
 
     @api.depends('ref_total')
     def total_amount_refund(self):
@@ -212,7 +240,7 @@ class StudentRefund(models.Model):
         self.message_post(body="Marketing Manager is approved")
         self.env['refund.payment'].create({
             'name': self.student_name,
-            'amount': self.ref_total,
+            'amount': self.total_all_refund,
             'batch': self.batch,
             'course': self.course.id,
             'student_admission_no': self.student_admission_no,
@@ -328,3 +356,12 @@ class RefundInvoiceDetails(models.Model):
     invoice_date = fields.Date(string='Invoice Date')
     refund_amt = fields.Integer(string='Refund Amount')
     inv_id = fields.Many2one('student.refund', string='Invoice', ondelete='cascade')
+
+
+class RefundDeduction(models.Model):
+    _name = 'refund.deduction'
+    _inherit = 'mail.thread'
+
+    item = fields.Char(string='Name')
+    amount = fields.Float(string='Amount')
+    ded_id = fields.Many2one('student.refund', string='Deduction', ondelete='cascade')
