@@ -77,6 +77,15 @@ class StudentRefund(models.Model):
 
     ref_total = fields.Float(string='Refund Requested', compute='_amount_all', store=True)
 
+    @api.depends('ref_total')
+    def refund_allowed_total(self):
+        for i in self:
+            if i.refund_allowed==0.0 and i.ref_total:
+                self.refund_allowed = i.ref_total
+            else:
+                self.refund_allowed = i.refund_allowed
+    refund_allowed = fields.Float(string='Total Paid', compute='refund_allowed_total', store=True, default=0.0)
+
     @api.depends('ded_ids.amount')
     def _amount_deduction_all(self):
         """
@@ -91,13 +100,13 @@ class StudentRefund(models.Model):
 
     total_deduction = fields.Float(string='Total Deduction', compute='_amount_deduction_all', store=True)
 
-    @api.depends('total_deduction','ref_total')
+    @api.depends('total_deduction','ref_total', 'refund_allowed')
     def _amount_total_refund(self):
         """
         Compute the total amounts of the SO.
         """
         for order in self:
-            total_deduction = order.ref_total - order.total_deduction
+            total_deduction = order.refund_allowed - order.total_deduction
         self.update({
             'total_all_refund': total_deduction,
         })
@@ -169,6 +178,21 @@ class StudentRefund(models.Model):
             self.make_visible_teacher = True
 
     make_visible_head = fields.Boolean(string="User", default=True, compute='get_head')
+
+    @api.depends('make_visible_accountant')
+    def get_accountant(self):
+        print('kkkll')
+        user_crnt = self.env.user.id
+
+        res_user = self.env['res.users'].search([('id', '=', self.env.user.id)])
+        if res_user.has_group('Refund.group_refund_accounts'):
+            self.make_visible_accountant = False
+
+        else:
+            self.make_visible_accountant = True
+
+    make_visible_accountant = fields.Boolean(string="User", default=True, compute='get_accountant')
+
 
     @api.depends('make_visible_head')
     def get_head(self):
@@ -245,6 +269,11 @@ class StudentRefund(models.Model):
             'course': self.course.id,
             'student_admission_no': self.student_admission_no,
             'id_refund_record': self.id,
+            'account_number': self.account_number,
+            'bank_name': self.bank_name,
+            'ifsc_code': self.ifsc_code,
+            'account_holder_name': self.account_holder_name,
+            'total_refund': self.total_all_refund,
             # 'invoice_number': self.invoice_number,
             # 'invoice_date': self.invoice_date,
 

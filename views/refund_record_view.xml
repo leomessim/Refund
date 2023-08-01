@@ -18,15 +18,51 @@
 
         </field>
     </record>
+    <!--    <record model="ir.ui.view" id="view_student_refund_kanban">-->
+    <!--        <field name="name">student.refund.kanban</field>-->
+    <!--        <field name="model">student.refund</field>-->
+    <!--        <field name="arch" type="xml">-->
+    <!--            <kanban class="o_kanban_mobile" sample="1" default_group_by="status" disable_drag_drop_record='true'>-->
+    <!--                <field name="currency_id" invisible="1"/>-->
+    <!--                <field name="reference_no"/>-->
+    <!--                <field name="create_date" string="Refund Date" type="Date"/>-->
+    <!--                <field name="student_name"/>-->
+    <!--                <field name="course"/>-->
+    <!--                <field name="ref_total" sum="Total" widget="monetary"/>-->
+    <!--                <field name="status" default_order="state"/>-->
+    <!--                <templates>-->
+    <!--                    <t t-name="kanban-box">-->
+    <!--                        <div t-attf-class="oe_kanban_card oe_kanban_global_click">-->
+    <!--                            <div class="o_kanban_record_top mb16">-->
+    <!--                                <strong>-->
+    <!--                                    <field name="ref_total" widget="monetary"/>-->
+    <!--                                </strong>-->
+    <!--                            </div>-->
+    <!--                            <div class="o_kanban_record_bottom">-->
+    <!--                                <div class="oe_kanban_bottom_left text-muted">-->
+    <!--                                    <field name="student_name"/>-->
+    <!--                                </div>-->
+    <!--                                &lt;!&ndash;                                <div class="oe_kanban_bottom_right">&ndash;&gt;-->
+    <!--                                &lt;!&ndash;                                    <field name="status" widget="label_selection"&ndash;&gt;-->
+    <!--                                &lt;!&ndash;                                           options="{'classes': {'draft': 'default', 'cancel': 'default', 'done': 'success'}}"/>&ndash;&gt;-->
+    <!--                                &lt;!&ndash;                                </div>&ndash;&gt;-->
+    <!--                            </div>-->
+    <!--                        </div>-->
+    <!--                    </t>-->
+    <!--                </templates>-->
+    <!--            </kanban>-->
+    <!--        </field>-->
+    <!--    </record>-->
+
     <record id="logic_refund_data_kanban" model="ir.ui.view">
         <field name="name">Refund</field>
         <field name="model">student.refund</field>
         <field name="priority" eval="100"/>
         <field name="arch" type="xml">
             <kanban class="o_kanban_mobile" default_group_by="status" archivable="false"
-                    sample="1">
+                    sample="1" >
                 <field name="student_name"/>
-                <field name="status" default_order="state"/>
+                <field name="status" readonly="1"/>
                 <field name="currency_id" invisible="1"/>
                 <!--                <progressbar field="status"-->
                 <!--                             colors='{"paid": "success", "head_assign": "warning", "reject": "danger", "manager": "info", "accounts": "Secondary", "cancelled": "danger"}'/>-->
@@ -40,13 +76,13 @@
                                     </span>
                                 </strong>
                             </div>
-                            <div class="o_kanban_record_body">
+                            <div class="oe_kanban_bottom_left text-muted">
                                 <field name="course"/>
                             </div>
-                            <div class="o_kanban_record_body">
+                            <div class="oe_kanban_bottom_left text-muted">
                                 <field name="create_date"/>
                             </div>
-                            <div class="o_kanban_record_body">
+                            <div class="o_kanban_record_title">
                                 <field name="currency_id" invisible="1"/>
                                 <field name="ref_total" widget="monetary"/>
                             </div>
@@ -161,6 +197,12 @@
                                    attrs="{'readonly':[('status', 'in', ['accountant','accounts','head_assign','teacher','reject','paid'])]}"/>
                             <field name="board_registration"
                                    attrs="{'readonly':['|','|',('make_visible_teacher', '=', True),('board_check', '=', False),('status', 'in', ['accountant','head_assign','accounts','manager','head','reject','paid'])], 'invisible':[('board_check', '=', False)]}"/>
+
+
+                        </group>
+                        <group>
+                            <field name="ref_total" widget="monetary" style="color: red;"/>
+                            <field name="make_visible_accountant" invisible="1"/>
                         </group>
                     </group>
                     <notebook>
@@ -196,8 +238,12 @@
                     <group name="note_group" col="6">
                         <group class="oe_subtotal_footer oe_right" colspan="2" name="ref_total">
                             <field name="total_deduction" widget="monetary"/>
-                            <field name="ref_total" widget="monetary"/>
-                            <field name="total_all_refund" widget="monetary"/>
+                            <field name="refund_allowed" widget="monetary" attrs="{'readonly': [('make_visible_accountant', '=', True)]}"/>
+                            <div class="oe_subtotal_footer_separator oe_inline">
+                                <label for="total_all_refund"/>
+                            </div>
+                            <field name="total_all_refund" nolabel="1" class="oe_subtotal_footer_separator"
+                                   widget="monetary" options="{'currency_field': 'currency_id'}"/>
 
                         </group>
                     </group>

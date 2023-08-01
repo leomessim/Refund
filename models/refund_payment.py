@@ -1,4 +1,5 @@
 from odoo import models, fields, api
+from odoo.exceptions import UserError
 
 
 class RefundPayment(models.Model):
@@ -7,7 +8,7 @@ class RefundPayment(models.Model):
     _description = 'Refund Payment'
 
     name = fields.Char(string='Name', readonly=True)
-    amount = fields.Float(string='Refund Requested', readonly=True)
+    amount = fields.Float(string='Total Refund', readonly=True)
     batch = fields.Char(string='Batch', readonly=True)
     course = fields.Many2one('logic.courses', string='Course', readonly=True)
     id_refund_record = fields.Integer(string='Refund Record id')
@@ -23,14 +24,18 @@ class RefundPayment(models.Model):
     # invoice_number = fields.Char('Invoice number', readonly=True)
     # invoice_date = fields.Date('Invoice date', readonly=True)
     date_of_refund = fields.Date('Refund Date')
-    refund_amount = fields.Float('Amount Refunded')
+    refund_amount = fields.Float('Amount Refunded', help="Please enter the refund amount here: ", required=True)
+    account_number = fields.Char(string='Account Number')
+    account_holder_name = fields.Char(string='Account holder name')
+    ifsc_code = fields.Char(string='IFSC Code')
+    bank_name = fields.Char(string='Bank Name')
 
-    @api.depends('refund_amount')
-    def refund_amound_total(self):
-        for rec in self:
-            rec.total_refund = self.refund_amount
+    # @api.depends('refund_amount')
+    # def refund_amound_total(self):
+    #     for rec in self:
+    #         rec.total_refund = self.refund_amount
 
-    total_refund = fields.Float('Total', compute='refund_amound_total', store=True, tracking=True)
+    total_refund = fields.Float('Total Amount')
 
     def paid(self):
         ss = self.env['student.refund'].search([])
