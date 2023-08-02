@@ -80,7 +80,7 @@ class StudentRefund(models.Model):
     @api.depends('ref_total')
     def refund_allowed_total(self):
         for i in self:
-            if i.refund_allowed==0.0 and i.ref_total:
+            if i.refund_allowed== 0.0 and i.ref_total:
                 self.refund_allowed = i.ref_total
             else:
                 self.refund_allowed = i.refund_allowed
@@ -128,11 +128,10 @@ class StudentRefund(models.Model):
             activity_id = self.env['mail.activity'].search(
                 [('res_id', '=', self.id), ('user_id', '=', self.env.user.id), (
                     'activity_type_id', '=', self.env.ref('Refund.mail_activity_refund_alert_custome').id)])
-            activity_id.action_feedback(feedback='Assigned')
+            activity_id.action_feedback(feedback='Assigned To' + " " + self.assign_to.name)
             other_activity_ids = self.env['mail.activity'].search([('res_id', '=', self.id), (
                 'activity_type_id', '=', self.env.ref('Refund.mail_activity_refund_alert_custome').id)])
             other_activity_ids.unlink()
-
             if self.course.board_registration == True:
                 self.board_check = True
             else:

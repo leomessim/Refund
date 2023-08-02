@@ -84,7 +84,7 @@
                             </div>
                             <div class="o_kanban_record_title">
                                 <field name="currency_id" invisible="1"/>
-                                <field name="ref_total" widget="monetary"/>
+                                <field name="total_all_refund" widget="monetary"/>
                             </div>
                         </div>
                     </t>
@@ -119,27 +119,27 @@
                             groups="Refund.group_refund_accounts"/>
 
                     <!---->
-                    <button name='teacher_approval' class="oe_highlight" string="Teacher Approve"
+                    <button name='teacher_approval' class="oe_highlight" string="Approve"
                             type="object"
                             attrs="{'invisible':[('status', 'in', ['accountant','head_assign','accounts','manager','reject','paid'])]}"
                             groups="Refund.group_refund_teacher"/>
-                    <button name='rejected' class="oe_highlight" string="Teacher Reject"
+                    <button name='rejected' class="oe_highlight" string="Reject"
                             type="object"
                             attrs="{'invisible':[('status', 'in', ['accountant','head_assign','accounts','manager','reject','paid'])]}"
                             groups="Refund.group_refund_teacher"/>
-                    <button name='head_approval' class="oe_highlight" string="Head Approve"
+                    <button name='head_approval' class="oe_highlight" string="Approve"
                             type="object"
                             attrs="{'invisible':[('status', 'in', ['teacher','accounts','manager','accountant','reject','paid'])]}"
                             groups="Refund.group_refund_marketing_head"/>
-                    <button name='rejected' class="oe_highlight" string="Head reject"
+                    <button name='rejected' class="oe_highlight" string="Reject"
                             type="object"
                             attrs="{'invisible':[('status', 'in', ['teacher','accounts','manager','accountant','reject','paid'])]}"
                             groups="Refund.group_refund_marketing_head"/>
-                    <button name='manager_approval' class="oe_highlight" string="Manager Approve"
+                    <button name='manager_approval' class="oe_highlight" string="Approve"
                             type="object"
                             attrs="{'invisible':[('status', 'in', ['teacher','head_assign','accountant','reject','accounts','paid'])]}"
                             groups="Refund.refund_manager"/>
-                    <button name='rejected' class="oe_highlight" string="Manager Reject"
+                    <button name='rejected' class="oe_highlight" string="Reject"
                             type="object"
                             attrs="{'invisible':[('status', 'in', ['teacher','head_assign','accountant','reject','accounts','paid'])]}"
                             groups="Refund.refund_manager"/>
