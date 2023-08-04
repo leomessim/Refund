@@ -125,6 +125,7 @@ class StudentRefund(models.Model):
             raise UserError('Please assign a Teacher..')
         else:
             self.status = 'teacher'
+            self.message_post(body="Assigned To " + self.assign_to.name)
             activity_id = self.env['mail.activity'].search(
                 [('res_id', '=', self.id), ('user_id', '=', self.env.user.id), (
                     'activity_type_id', '=', self.env.ref('Refund.mail_activity_refund_alert_custome').id)])
