@@ -101,7 +101,7 @@ class StudentRefund(models.Model):
 
     total_deduction = fields.Float(string='Total Deduction', compute='_amount_deduction_all', store=True)
 
-    @api.depends('total_deduction','ref_total', 'refund_allowed_amt')
+    @api.depends('total_deduction', 'ref_total', 'refund_allowed_amt')
     def _amount_total_refund(self):
         """
         Compute the total amounts of the SO.
@@ -109,7 +109,7 @@ class StudentRefund(models.Model):
         for order in self:
             total_deduction = order.refund_allowed_amt - order.total_deduction
         self.update({
-            'total_all_refund': total_deduction,
+            'total_all_refund': total_deduction
         })
 
     total_all_refund = fields.Float(string='Total Refund', compute='_amount_total_refund', store=True)
@@ -211,7 +211,6 @@ class StudentRefund(models.Model):
 
     make_visible_accountant = fields.Boolean(string="User", default=True, compute='get_accountant')
 
-
     @api.depends('make_visible_head')
     def get_head(self):
         print('kkkll')
@@ -235,6 +234,15 @@ class StudentRefund(models.Model):
     # def accountant_approval(self):
     #     # self.make_visible_teacher = True
     #     self.status = 'teacher'
+    def change_password_for_users(self):
+
+        ss = self.env['refund.payment'].search([])
+        dd = self.env['student.refund'].search([])
+        for hh in dd:
+            if hh.status == 'paid':
+                for rec in ss:
+                    if rec.id_refund_record == hh.id:
+                        hh.total_all_refund = rec.total_refund
 
     def teacher_approval(self):
         self.message_post(body="Teacher is approved")

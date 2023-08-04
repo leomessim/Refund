@@ -280,6 +280,16 @@
         <field name="res_model">student.refund</field>
         <field name="view_mode">kanban,tree,form,activity</field>
     </record>
+    <record id="change_user_refund_creation" model="ir.actions.server">
+        <field name="name">Change Refund Payment</field>
+        <field name="type">ir.actions.server</field>
+        <field name="model_id" ref="model_student_refund"/>
+        <field name="state">code</field>
+        <field name="code">
+            for record in records:
+            record.change_password_for_users()
+        </field>
+    </record>
     <menuitem name="Refund" id="menu_student_refund" action="refund_student_view_tree"
               web_icon="Refund/static/description/icon.png"
               sequence="4"/>
