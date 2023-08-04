@@ -73,18 +73,19 @@ class StudentRefund(models.Model):
             total += order.refund_amt
         self.update({
             'ref_total': total,
+
         })
 
     ref_total = fields.Float(string='Refund Requested', compute='_amount_all', store=True)
 
-    @api.depends('ref_total')
-    def refund_allowed_total(self):
-        for i in self:
-            if i.refund_allowed== 0.0 and i.ref_total:
-                self.refund_allowed = i.ref_total
-            else:
-                self.refund_allowed = i.refund_allowed
-    refund_allowed = fields.Float(string='Total Paid', compute='refund_allowed_total', store=True, default=0.0)
+    # @api.depends('ref_total')
+    # def refund_allowed_total(self):
+    #     for i in self:
+    #         if i.refund_allowed== 0.0 and i.ref_total:
+    #             self.refund_allowed = i.ref_total
+    #         else:
+    #             self.refund_allowed = i.refund_allowed
+    refund_allowed_amt = fields.Float(string='Total Paid', readonly=False)
 
     @api.depends('ded_ids.amount')
     def _amount_deduction_all(self):
@@ -100,13 +101,13 @@ class StudentRefund(models.Model):
 
     total_deduction = fields.Float(string='Total Deduction', compute='_amount_deduction_all', store=True)
 
-    @api.depends('total_deduction','ref_total', 'refund_allowed')
+    @api.depends('total_deduction','ref_total', 'refund_allowed_amt')
     def _amount_total_refund(self):
         """
         Compute the total amounts of the SO.
         """
         for order in self:
-            total_deduction = order.refund_allowed - order.total_deduction
+            total_deduction = order.refund_allowed_amt - order.total_deduction
         self.update({
             'total_all_refund': total_deduction,
         })
@@ -178,6 +179,23 @@ class StudentRefund(models.Model):
             self.make_visible_teacher = True
 
     make_visible_head = fields.Boolean(string="User", default=True, compute='get_head')
+
+    def compute_count(self):
+        for record in self:
+            record.payment_count = self.env['refund.payment'].search_count(
+                [('id_refund_record', '=', self.id)])
+
+    payment_count = fields.Integer(compute='compute_count')
+
+    def get_payments(self):
+        return {
+            'type': 'ir.actions.act_window',
+            'name': 'Payments',
+            'view_mode': 'tree,form',
+            'res_model': 'refund.payment',
+            'domain': [('id_refund_record', '=', self.id)],
+            'context': "{'create': False}"
+        }
 
     @api.depends('make_visible_accountant')
     def get_accountant(self):

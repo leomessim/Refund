@@ -53,3 +53,20 @@ class RefundPayment(models.Model):
 
     def cancel(self):
         self.status = 'cancel'
+
+    def compute_count(self):
+        for record in self:
+            record.form_count = self.env['student.refund'].search_count(
+                [('id', '=', self.id_refund_record)])
+
+    form_count = fields.Integer(compute='compute_count')
+
+    def get_payments_form(self):
+        return {
+            'type': 'ir.actions.act_window',
+            'name': 'Refund',
+            'view_mode': 'tree,form',
+            'res_model': 'student.refund',
+            'domain': [('id', '=', self.id_refund_record)],
+            'context': "{'create': False}"
+        }

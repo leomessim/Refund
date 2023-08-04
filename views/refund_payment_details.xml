@@ -40,6 +40,12 @@
                             attrs="{'invisible':[('status', 'in', ['cancel','paid'])]}"/>
                 </header>
                 <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button class="oe_stat_button" type="object" name="get_payments_form"
+                                icon="fa-list-alt">
+                            <field string="Refund Form" name="form_count" widget="statinfo"/>
+                        </button>
+                    </div>
                     <group>
                         <group>
                             <field name="name"/>
@@ -166,5 +172,6 @@
     </record>
     <menuitem name="Refund Payment" id="menu_refund_payment" action="refund_payment_view_tree"
               parent="menu_student_refund"
+              groups="Refund.group_refund_accounts"/>
               sequence="4"/>
 </odoo>

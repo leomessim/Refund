@@ -12,7 +12,7 @@
                 <field name="batch"/>
                 <field name="course"/>
                 <field name="reason"/>
-                <field name="ref_total" sum="Total" widget="monetary"/>
+                <field name="total_all_refund" sum="Total" widget="monetary"/>
                 <field name="status"/>
             </tree>
 
@@ -60,7 +60,7 @@
         <field name="priority" eval="100"/>
         <field name="arch" type="xml">
             <kanban class="o_kanban_mobile" default_group_by="status" archivable="false"
-                    sample="1" >
+                    sample="1">
                 <field name="student_name"/>
                 <field name="status" readonly="1"/>
                 <field name="currency_id" invisible="1"/>
@@ -97,6 +97,7 @@
         <field name="model">student.refund</field>
         <field name="type">form</field>
         <field name="arch" type="xml">
+
             <form string="refund">
                 <header>
                     <field name="status" widget="statusbar"
@@ -151,6 +152,13 @@
                     <!--                            type="object" attrs="{'invisible':[('status', 'in', ['reject','accounts','paid'])]}"/>-->
                 </header>
                 <sheet>
+
+                    <div class="oe_button_box" name="button_box">
+                        <button class="oe_stat_button" type="object" name="get_payments"
+                                icon="fa-money">
+                            <field string="Payment" name="payment_count" widget="statinfo"/>
+                        </button>
+                    </div>
                     <field name="reference_no" readonly="True"/>
                     <group>
                         <group>
@@ -238,7 +246,8 @@
                     <group name="note_group" col="6">
                         <group class="oe_subtotal_footer oe_right" colspan="2" name="ref_total">
                             <field name="total_deduction" widget="monetary"/>
-                            <field name="refund_allowed" widget="monetary" attrs="{'readonly': [('make_visible_accountant', '=', True)]}"/>
+                            <field name="refund_allowed_amt" widget="monetary"
+                                   attrs="{'readonly': [('make_visible_accountant', '=', True)]}"/>
                             <div class="oe_subtotal_footer_separator oe_inline">
                                 <label for="total_all_refund"/>
                             </div>

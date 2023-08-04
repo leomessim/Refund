@@ -58,7 +58,8 @@ class PartnerForm(http.Controller):
             'branch': kw.get('branch'),
             'student_admission_no': kw.get('admission_no'),
             'parent_number': kw.get('parent_no'),
-            'inv_ids': abc
+            'inv_ids': abc,
+            'refund_allowed_amt': kw.get('amount_total'),
 
 
             # 'sale_order_id': kw.get('sale_order')
