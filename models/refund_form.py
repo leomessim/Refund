@@ -234,16 +234,6 @@ class StudentRefund(models.Model):
     # def accountant_approval(self):
     #     # self.make_visible_teacher = True
     #     self.status = 'teacher'
-    def change_password_for_users(self):
-
-        ss = self.env['refund.payment'].search([])
-        dd = self.env['student.refund'].search([])
-        for hh in dd:
-            if hh.status == 'paid':
-                for rec in ss:
-                    if rec.id_refund_record == hh.id:
-                        hh.total_all_refund = rec.total_refund
-
     def teacher_approval(self):
         self.message_post(body="Teacher is approved")
         self.status = 'head_assign'
