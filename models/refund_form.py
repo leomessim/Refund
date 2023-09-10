@@ -6,7 +6,7 @@ from odoo.exceptions import UserError
 
 class StudentRefund(models.Model):
     _name = 'student.refund'
-    _inherit = ['mail.thread', 'mail.activity.mixin']
+    _inherit = ['portal.mixin', 'mail.thread', 'mail.activity.mixin']
     _rec_name = 'reference_no'
     _description = "Refund"
 

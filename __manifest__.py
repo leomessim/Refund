@@ -2,7 +2,7 @@
     'name': "Refund",
     'version': "14.0.1.0",
     'sequence': "0",
-    'depends': ['base', 'website', 'mail'],
+    'depends': ['base', 'website', 'mail', 'portal'],
     'data': [
         'data/activity.xml',
         'security/security.xml',
