@@ -18,41 +18,6 @@
 
         </field>
     </record>
-    <!--    <record model="ir.ui.view" id="view_student_refund_kanban">-->
-    <!--        <field name="name">student.refund.kanban</field>-->
-    <!--        <field name="model">student.refund</field>-->
-    <!--        <field name="arch" type="xml">-->
-    <!--            <kanban class="o_kanban_mobile" sample="1" default_group_by="status" disable_drag_drop_record='true'>-->
-    <!--                <field name="currency_id" invisible="1"/>-->
-    <!--                <field name="reference_no"/>-->
-    <!--                <field name="create_date" string="Refund Date" type="Date"/>-->
-    <!--                <field name="student_name"/>-->
-    <!--                <field name="course"/>-->
-    <!--                <field name="ref_total" sum="Total" widget="monetary"/>-->
-    <!--                <field name="status" default_order="state"/>-->
-    <!--                <templates>-->
-    <!--                    <t t-name="kanban-box">-->
-    <!--                        <div t-attf-class="oe_kanban_card oe_kanban_global_click">-->
-    <!--                            <div class="o_kanban_record_top mb16">-->
-    <!--                                <strong>-->
-    <!--                                    <field name="ref_total" widget="monetary"/>-->
-    <!--                                </strong>-->
-    <!--                            </div>-->
-    <!--                            <div class="o_kanban_record_bottom">-->
-    <!--                                <div class="oe_kanban_bottom_left text-muted">-->
-    <!--                                    <field name="student_name"/>-->
-    <!--                                </div>-->
-    <!--                                &lt;!&ndash;                                <div class="oe_kanban_bottom_right">&ndash;&gt;-->
-    <!--                                &lt;!&ndash;                                    <field name="status" widget="label_selection"&ndash;&gt;-->
-    <!--                                &lt;!&ndash;                                           options="{'classes': {'draft': 'default', 'cancel': 'default', 'done': 'success'}}"/>&ndash;&gt;-->
-    <!--                                &lt;!&ndash;                                </div>&ndash;&gt;-->
-    <!--                            </div>-->
-    <!--                        </div>-->
-    <!--                    </t>-->
-    <!--                </templates>-->
-    <!--            </kanban>-->
-    <!--        </field>-->
-    <!--    </record>-->
 
     <record id="logic_refund_data_kanban" model="ir.ui.view">
         <field name="name">Refund</field>
@@ -125,12 +90,6 @@
                             context="{'default_user_id': active_id}"
                             attrs="{'invisible':[('status', 'in', ['teacher','head_assign','manager','accounts','reject','paid'])]}"
                             groups="Refund.group_refund_accounts"/>
-                    <!--                    <button name='confirm_assign_teacher' class="oe_highlight" string="Confirm"-->
-                    <!--                            type="object"-->
-                    <!--                            context="{'default_user_id': active_id}"-->
-                    <!--                            attrs="{'invisible':[('status', 'in', ['accountant','teacher','manager','accounts','reject','paid'])]}"-->
-                    <!--                            groups="Refund.group_refund_marketing_head"/>-->
-                    <!--                    <button name="custome_refund" string="Test" type="object"/>-->
                     <button name='rejected' class="oe_highlight" string="Reject"
                             type="object"
                             attrs="{'invisible':[('status', 'in', ['teacher','head_assign','manager','accounts','reject','paid'])]}"

@@ -30,14 +30,20 @@
         <field name="arch" type="xml">
             <form string="refund payment">
                 <header>
-                    <field name="status" widget="statusbar"
-                           statusbar_visible="in_payment,paid,cancel"/>
+                    <field name="status" widget="statusbar"/>
                     <button name='paid' class="oe_highlight" string="Pay"
                             type="object"
-                            attrs="{'invisible':[('status', 'in', ['cancel','paid'])]}"/>
-                    <button name='cancel' class="oe_highlight" string="Cancel"
+                            attrs="{'invisible':[('status', 'in', ['cancel','paid','reverted'])]}"/>
+                    <button name="action_return_to_teacher" class="oe_highlight" string="Revert to Teacher"
+                            type="object" groups="Refund.group_refund_accounts" attrs="{'invisible':[('status', 'in', ['cancel','paid','reverted'])]}"/>
+                    <button name="action_return_to_head" class="oe_highlight" string="Revert to Academic Head"
+                            type="object" groups="Refund.group_refund_accounts" attrs="{'invisible':[('status', 'in', ['cancel','paid','reverted'])]}"/>
+                    <button name="action_return_to_manager" class="oe_highlight" string="Revert to Marketing Manager"
+                            type="object" groups="Refund.group_refund_accounts" attrs="{'invisible':[('status', 'in', ['cancel','paid','reverted'])]}"/>
+                    <button name='cancel' string="Cancel"
                             type="object"
-                            attrs="{'invisible':[('status', 'in', ['cancel','paid'])]}"/>
+                            attrs="{'invisible':[('status', 'in', ['cancel','paid','reverted'])]}"/>
+<!--                    <button name="action_return_to_draft" string="Revert to Draft" type="object"/>-->
                 </header>
                 <sheet>
                     <div class="oe_button_box" name="button_box">
@@ -46,6 +52,10 @@
                             <field string="Refund Form" name="form_count" widget="statinfo"/>
                         </button>
                     </div>
+                    <widget name="web_ribbon" title="Reverted" bg_color="bg-danger"
+                            attrs="{'invisible': [('status', '!=', 'reverted')]}"/>
+                    <widget name="web_ribbon" title="Paid" bg_color="bg-success"
+                            attrs="{'invisible': [('status', '!=', 'paid')]}"/>
                     <group>
                         <group>
                             <field name="name"/>
@@ -71,7 +81,8 @@
                         <group>
                             <field name="transaction_id"/>
                             <field name="date_of_refund"/>
-                            <field name="refund_amount" widget='monetary' options="{'currency_field': 'currency_id'}" invisible="1"/>
+                            <field name="refund_amount" widget='monetary' options="{'currency_field': 'currency_id'}"
+                                   invisible="1"/>
                         </group>
                     </group>
 
@@ -173,5 +184,5 @@
     <menuitem name="Refund Payment" id="menu_refund_payment" action="refund_payment_view_tree"
               parent="menu_student_refund"
               groups="Refund.group_refund_accounts"/>
-              sequence="4"/>
+    sequence="4"/>
 </odoo>

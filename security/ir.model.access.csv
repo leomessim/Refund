@@ -18,6 +18,8 @@ access_refund_deduction_head,access.logic.leads.accounts,model_refund_deduction,
 access_refund_base_teacher,access.logic.leads.accounts,model_refund_invoice_details,Refund.group_refund_teacher,1,1,1,1
 access_refund_base_head,access.logic.leads.accounts,model_refund_invoice_details,Refund.group_refund_marketing_head,1,1,1,1
 access_refund_base_acc,access.logic.leads.accounts,model_refund_invoice_details,Refund.group_refund_accounts,1,1,1,1
+revert_to_teacher,access.logic.refund,model_student_refund_reverted_records,Refund.group_refund_accounts,1,1,1,1
+
 
 
 

@@ -24,9 +24,9 @@ class StudentRefund(models.Model):
     status = fields.Selection([
         ('accountant', 'Draft'),
         ('teacher', 'Teacher Approval'),
-        ('head_assign', 'Head Approval'),
+        ('head_assign', 'Academic Head Approval'),
         ('head', 'Head Approval'),
-        ('manager', 'Manager Approval'),
+        ('manager', 'Marketing Manager Approval'),
         ('accounts', 'Approved'),
         ('reject', 'Rejected'),
         ('paid', 'Paid'),
@@ -126,14 +126,18 @@ class StudentRefund(models.Model):
             raise UserError('Please assign a Teacher..')
         else:
             self.status = 'teacher'
-            self.message_post(body="Assigned To " + self.assign_to.name)
+            self.activity_schedule('Refund.mail_activity_refund_alert_custome', user_id=self.assign_to.user_id.id,
+                                   note='Please approve the refund request.')
+            # self.message_post(body="Assigned To " + self.assign_to.name)
             activity_id = self.env['mail.activity'].search(
                 [('res_id', '=', self.id), ('user_id', '=', self.env.user.id), (
                     'activity_type_id', '=', self.env.ref('Refund.mail_activity_refund_alert_custome').id)])
-            activity_id.action_feedback(feedback='Assigned To' + " " + self.assign_to.name)
-            other_activity_ids = self.env['mail.activity'].search([('res_id', '=', self.id), (
-                'activity_type_id', '=', self.env.ref('Refund.mail_activity_refund_alert_custome').id)])
-            other_activity_ids.unlink()
+            if activity_id:
+                activity_id.action_feedback(feedback='Assigned')
+            # activity_id.action_feedback(feedback='Assigned To' + " " + self.assign_to.name)
+            # other_activity_ids = self.env['mail.activity'].search([('res_id', '=', self.id), (
+            #     'activity_type_id', '=', self.env.ref('Refund.mail_activity_refund_alert_custome').id)])
+            # other_activity_ids.unlink()
             if self.course.board_registration == True:
                 self.board_check = True
             else:
@@ -157,7 +161,7 @@ class StudentRefund(models.Model):
         if not self.assign_to:
             raise UserError('Please assign a Teacher..')
         else:
-            self.status = 'teacher'
+            # self.status = 'teacher'
             activity_id = self.env['mail.activity'].search(
                 [('res_id', '=', self.id), ('user_id', '=', self.env.user.id), (
                     'activity_type_id', '=', self.env.ref('Refund.mail_activity_refund_alert_custome').id)])
@@ -236,13 +240,13 @@ class StudentRefund(models.Model):
     #     self.status = 'teacher'
     def teacher_approval(self):
         self.message_post(body="Teacher is approved")
+
         self.status = 'head_assign'
         activity_id = self.env['mail.activity'].search([('res_id', '=', self.id), ('user_id', '=', self.env.user.id), (
             'activity_type_id', '=', self.env.ref('Refund.mail_activity_refund_alert_custome').id)])
         activity_id.action_feedback(feedback='Teacher Approved')
-        other_activity_ids = self.env['mail.activity'].search([('res_id', '=', self.id), (
-            'activity_type_id', '=', self.env.ref('Refund.mail_activity_refund_alert_custome').id)])
-        other_activity_ids.unlink()
+        self.activity_schedule('Refund.mail_activity_refund_alert_custome', user_id=self.assign_to.parent_id.user_id.id,
+                               note='Please approve the refund request.')
         return {
             'effect': {
                 'fadeout': 'slow',
@@ -254,18 +258,18 @@ class StudentRefund(models.Model):
         #                        note='Please Approve')
 
     def head_approval(self):
-        print(self.assign_to.parent_id.user_id.name, 'jjj')
-
         if self.assign_to.parent_id.user_id.id == self.env.user.id:
-            self.message_post(body="Head is approved")
+
+            print(self.assign_to.parent_id.user_id.name, 'jjj')
             self.status = 'manager'
             activity_id = self.env['mail.activity'].search(
                 [('res_id', '=', self.id), ('user_id', '=', self.env.user.id), (
                     'activity_type_id', '=', self.env.ref('Refund.mail_activity_refund_alert_custome').id)])
             activity_id.action_feedback(feedback='Head Approved')
-            other_activity_ids = self.env['mail.activity'].search([('res_id', '=', self.id), (
-                'activity_type_id', '=', self.env.ref('Refund.mail_activity_refund_alert_custome').id)])
-            other_activity_ids.unlink()
+            users = self.env.ref('Refund.refund_manager').users
+            for j in users:
+                self.activity_schedule('Refund.mail_activity_refund_alert_custome', user_id=j.id,
+                                       note='Please approve the refund request.')
             return {
                 'effect': {
                     'fadeout': 'slow',
@@ -277,7 +281,7 @@ class StudentRefund(models.Model):
             raise UserError('Only approval access teacher head')
 
     def manager_approval(self):
-        self.message_post(body="Marketing Manager is approved")
+        # self.message_post(body="Marketing Manager is approved")
         self.env['refund.payment'].create({
             'name': self.student_name,
             'amount': self.total_all_refund,
@@ -296,12 +300,17 @@ class StudentRefund(models.Model):
         }
         )
         self.status = 'accounts'
-        activity_id = self.env['mail.activity'].search([('res_id', '=', self.id), ('user_id', '=', self.env.user.id), (
-            'activity_type_id', '=', self.env.ref('Refund.mail_activity_refund_alert_custome').id)])
-        activity_id.action_feedback(feedback='Manager Approved')
-        other_activity_ids = self.env['mail.activity'].search([('res_id', '=', self.id), (
-            'activity_type_id', '=', self.env.ref('Refund.mail_activity_refund_alert_custome').id)])
-        other_activity_ids.unlink()
+        manager_users = self.env.ref('Refund.refund_manager').users
+        for manager in manager_users:
+            activity_id = self.env['mail.activity'].search(
+                [('res_id', '=', self.id), ('user_id', '=', manager.id), (
+                    'activity_type_id', '=', self.env.ref('Refund.mail_activity_refund_alert_custome').id)])
+            activity_id.action_feedback(feedback='Manager Approved')
+
+        users = self.env.ref('Refund.group_refund_accounts').users
+        for j in users:
+            self.activity_schedule('Refund.mail_activity_refund_alert_custome', user_id=j.id,
+                                   note='Please approve the refund request.')
         return {
             'effect': {
                 'fadeout': 'slow',
@@ -309,6 +318,26 @@ class StudentRefund(models.Model):
                 'type': 'rainbow_man',
             }
         }
+
+    def remove_activity_for_manager(self):
+        print('erwyuqqwqwi')
+        # if self.status != 'manager':
+        #     users = self.env.ref('Refund.refund_manager').users
+        #     for i in users:
+        #         activity_id = self.env['mail.activity'].search([('user_id', '=', i.id), (
+        #             'activity_type_id', '=', self.env.ref('Refund.mail_activity_refund_alert_custome').id)])
+        #         activity_id.unlink()
+
+    def remove_activity_for_accounts(self):
+        refund_record = self.env['student.refund'].search([])
+        users = self.env.ref('Refund.group_refund_accounts').users
+        for i in users:
+            print(i.name, 'lll')
+            for record in refund_record:
+                if record.status != 'accounts':
+                    activity_id = record.env['mail.activity'].search([('res_id', '=', record.id), ('user_id', '=', i.id), (
+                        'activity_type_id', '=', self.env.ref('Refund.mail_activity_refund_alert_custome').id)])
+                    activity_id.unlink()
 
     def rejected(self):
         self.status = 'reject'

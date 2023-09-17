@@ -11,6 +11,7 @@
         'views/refund_form.xml',
         'views/refund_record_view.xml',
         'views/refund_payment_details.xml',
+        'views/reverting_reason.xml',
         # 'views/activities.xml'
     ],
     'assets': {
