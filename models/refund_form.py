@@ -2,6 +2,7 @@ from odoo import fields, models, api, _
 import requests
 from datetime import date, datetime
 from odoo.exceptions import UserError
+import requests
 
 
 class StudentRefund(models.Model):
@@ -125,6 +126,37 @@ class StudentRefund(models.Model):
         if not self.assign_to:
             raise UserError('Please assign a Teacher..')
         else:
+            # for students refund responds
+            std_mobile = self.phone_number
+            student = self.student_name
+            std_template = '1107169772717746551'
+            refund_student = "Greetings" + " " + student + " " + "from Logic School of Management  we have received your refund request and will be contacting you soon."
+            url_std = "http://sms.mithraitsolutions.com/httpapi/httpapi?token=adf60dcda3a04ec6d13f827b38349609&sender=LSMKCH&number=" + str(
+                std_mobile) + "&route=2&type=Text&sms=" + refund_student + "&templateid=" + std_template
+
+            # A GET request to the API
+            response = requests.get(url_std)
+
+            # Print the response
+            response_json = response.json()
+
+
+            # for teacher refund request
+
+            mobile = self.assign_to.mobile_phone
+            user = self.assign_to.name
+            type = "Logic Students"
+            message_approved = "Hi " + user + ", new refund request received from " + type + " Ref : " + self.reference_no + " " + "For more details login to Logic Odoo ERP"
+            dlt_approved = '1107169772701012154'
+            url = "http://sms.mithraitsolutions.com/httpapi/httpapi?token=adf60dcda3a04ec6d13f827b38349609&sender=LSMKCH&number=" + str(
+                mobile) + "&route=2&type=Text&sms=" + message_approved + "&templateid=" + dlt_approved
+
+            # A GET request to the API
+            response = requests.get(url)
+
+            # Print the response
+            response_json = response.json()
+            print(response_json)
             self.status = 'teacher'
             self.activity_schedule('Refund.mail_activity_refund_alert_custome', user_id=self.assign_to.user_id.id,
                                    note='Please approve the refund request.')
@@ -335,8 +367,9 @@ class StudentRefund(models.Model):
             print(i.name, 'lll')
             for record in refund_record:
                 if record.status != 'accounts':
-                    activity_id = record.env['mail.activity'].search([('res_id', '=', record.id), ('user_id', '=', i.id), (
-                        'activity_type_id', '=', self.env.ref('Refund.mail_activity_refund_alert_custome').id)])
+                    activity_id = record.env['mail.activity'].search(
+                        [('res_id', '=', record.id), ('user_id', '=', i.id), (
+                            'activity_type_id', '=', self.env.ref('Refund.mail_activity_refund_alert_custome').id)])
                     activity_id.unlink()
 
     def rejected(self):

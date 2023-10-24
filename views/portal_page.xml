@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="payroll_generate" name="Payroll">
+        <t t-call="website.layout">
+            <div class="wrap">
+                <div class="oe_structure">
+                    <div class="container">
+                        <section>
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <h1 class="text-center">Refund Current Status</h1>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                        <form action="/payroll/create" method="POST" class="form-horizontal mt32 container"
+                              enctype="multipart/form-data">
+                            <div class="row o_portal_details">
+                                <div class="col-lg-12">
+                                    <div class='row'>
+                                        <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                                        <table width="75%" border="0" cellpadding="0" cellspacing="0"
+                                               style="float: left" class="table table-noline">
+                                            <tbody>
+                                                <tr>
+                                                    <td bgcolor="#369F81" colspan="2">
+                                                        <label class="control-label">
+                                                            <strong style="font-size:15px;color:#fff">Salary and Bonus
+                                                            </strong>
+                                                        </label>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td bgcolor="#369F81" colspan="2">
+                                                        <label class="control-label">
+                                                            <strong style="font-size:15px;color:#fff">salary
+                                                            </strong>
+                                                        </label>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="2" class="form-group">
+                                                        <button type="submit" class="btn btn-primary btn-lg">Submit
+                                                        </button>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Student </th>
+                                                    <th>Contact</th>
+                                                    <th>Country</th>
+                                                </tr>
+                                                <tr>
+                                                    <td>Alfreds Futterkiste</td>
+                                                    <td>Maria Anders</td>
+                                                    <td>Germany</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Centro comercial Moctezuma</td>
+                                                    <td>Francisco Chang</td>
+                                                    <td>Mexico</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Ernst Handel</td>
+                                                    <td>Roland Mendel</td>
+                                                    <td>Austria</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Island Trading</td>
+                                                    <td>Helen Bennett</td>
+                                                    <td>UK</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Laughing Bacchus Winecellars</td>
+                                                    <td>Yoshi Tannamuri</td>
+                                                    <td>Canada</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Magazzini Alimentari Riuniti</td>
+                                                    <td>Giovanni Rovelli</td>
+                                                    <td>Italy</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+</odoo>
+
+
+
+
