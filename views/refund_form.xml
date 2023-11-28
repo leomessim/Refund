@@ -170,7 +170,7 @@
                                             </span>
                                         </label>
                                         <div class="col-sm">
-                                            <input id="phone" type="phone"
+                                            <input id="phone" type="number"
                                                    class="form-control s_website_form_input"
                                                    name="phone" required=" "/>
                                         </div>
@@ -189,7 +189,7 @@
                                             </span>
                                         </label>
                                         <div class="col-sm">
-                                            <input id="parent_no" type="parent_no"
+                                            <input id="parent_no" type="number"
                                                    class="form-control s_website_form_input"
                                                    name="parent_no" required=" "/>
                                         </div>
