@@ -158,6 +158,41 @@ class StudentRefundRevertedRecords(models.TransientModel):
                                                 user_id=i.id,
                                                 note=f'This record is rejected due to: {self.reason_for_reverting}')
 
+    currency_id = fields.Many2one('res.currency', string='Currency', default=lambda self: self.env.user.company_id.currency_id)
 
-
-            # for i in users:
+    @api.model
+    def get_refund_dashboard(self):
+        expense_state = {
+            'draft': {
+                'description': _('to report'),
+                'amount': 0.0,
+                'currency': self.env.company.currency_id.id,
+            },
+            # 'reported': {
+            #     'description': _('under validation'),
+            #     'amount': 0.0,
+            #     'currency': self.env.company.currency_id.id,
+            # },
+            # 'approved': {
+            #     'description': _('to be reimbursed'),
+            #     'amount': 0.0,
+            #     'currency': self.env.company.currency_id.id,
+            # }
+        }
+        if not self.env.user.employee_ids:
+            return expense_state
+        target_currency = self.env.company.currency_id
+        expenses = self.read_group(
+            [
+                ('employee_id', 'in', self.env.user.employee_ids.ids),
+                ('payment_mode', '=', 'own_account'),
+                ('state', 'in', ['draft', 'cancel', 'paid'])
+            ], ['total_refund', 'currency_id', 'status'], ['status', 'currency_id'], lazy=False)
+        for expense in expenses:
+            state = expense['state']
+            currency = self.env['res.currency'].browse(expense['currency_id'][0]) if expense[
+                'currency_id'] else target_currency
+            amount = currency._convert(
+                expense['total_refund'], target_currency, self.env.company, fields.Date.today())
+            expense_state[state]['amount'] += amount
+        return expense_state

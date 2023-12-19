@@ -35,15 +35,18 @@
                             type="object"
                             attrs="{'invisible':[('status', 'in', ['cancel','paid','reverted'])]}"/>
                     <button name="action_return_to_teacher" class="oe_highlight" string="Revert to Teacher"
-                            type="object" groups="Refund.group_refund_accounts" attrs="{'invisible':[('status', 'in', ['cancel','paid','reverted'])]}"/>
+                            type="object" groups="Refund.group_refund_accounts"
+                            attrs="{'invisible':[('status', 'in', ['cancel','paid','reverted'])]}"/>
                     <button name="action_return_to_head" class="oe_highlight" string="Revert to Academic Head"
-                            type="object" groups="Refund.group_refund_accounts" attrs="{'invisible':[('status', 'in', ['cancel','paid','reverted'])]}"/>
+                            type="object" groups="Refund.group_refund_accounts"
+                            attrs="{'invisible':[('status', 'in', ['cancel','paid','reverted'])]}"/>
                     <button name="action_return_to_manager" class="oe_highlight" string="Revert to Marketing Manager"
-                            type="object" groups="Refund.group_refund_accounts" attrs="{'invisible':[('status', 'in', ['cancel','paid','reverted'])]}"/>
+                            type="object" groups="Refund.group_refund_accounts"
+                            attrs="{'invisible':[('status', 'in', ['cancel','paid','reverted'])]}"/>
                     <button name='cancel' string="Cancel"
                             type="object"
                             attrs="{'invisible':[('status', 'in', ['cancel','paid','reverted'])]}"/>
-<!--                    <button name="action_return_to_draft" string="Revert to Draft" type="object"/>-->
+                    <!--                    <button name="action_return_to_draft" string="Revert to Draft" type="object"/>-->
                 </header>
                 <sheet>
                     <div class="oe_button_box" name="button_box">
@@ -176,13 +179,26 @@
     <!--            </kanban>-->
     <!--        </field>-->
     <!--    </record>-->
+
+<!--    <record id="view_refund_sheet_dashboard_tree" model="ir.ui.view">-->
+<!--        <field name="name">refund.tree.sheet</field>-->
+<!--        <field name="model">refund.payment</field>-->
+<!--        <field name="priority">20</field>-->
+<!--        <field name="inherit_id" ref="Refund.refund_data_tree"/>-->
+<!--        <field name="mode">primary</field>-->
+<!--        <field name="arch" type="xml">-->
+<!--            -->
+<!--        </field>-->
+<!--    </record>-->
+
     <record model="ir.actions.act_window" id="refund_payment_view_tree">
         <field name="name">Refund Payment</field>
         <field name="res_model">refund.payment</field>
         <field name="view_mode">kanban,tree,form</field>
     </record>
+
     <menuitem name="Refund Payment" id="menu_refund_payment" action="refund_payment_view_tree"
               parent="menu_student_refund"
               groups="Refund.group_refund_accounts"/>
-    sequence="4"/>
+
 </odoo>

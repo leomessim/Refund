@@ -12,13 +12,19 @@
         'views/refund_record_view.xml',
         'views/refund_payment_details.xml',
         'views/reverting_reason.xml',
-        'views/portal_page.xml'
+        'views/portal_page.xml',
+        # 'views/js_file.xml',
+
         # 'views/activities.xml'
     ],
     'assets': {
         'web.assets_backend': [
             'Refund/static/src/js/submitt_button.js'],
     },
+    'qweb': [
+        "static/src/xml/template.xml",
+
+    ],
 
     'demo': [],
     'summary': "logic_refund",

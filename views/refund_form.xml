@@ -321,7 +321,7 @@
                                         </div>
                                         <div class="col-sm-2">
                                             <label class="control-label">
-                                                <span>Refund Amount:</span>
+                                                <span>Paid Amount:</span>
                                                 <span class="s_website_form_mark">
                                                     *
                                                 </span>
@@ -371,7 +371,7 @@
                                                    name="invoice_date_three" placeholder="yyyy-mm-dd"/>
                                         </div>
                                         <div class="col-sm-2">
-                                            <label class="control-label">Refund Amount:</label>
+                                            <label class="control-label">Paid Amount:</label>
                                             <input id="amount_three" type="number"
                                                    class="form-control s_website_form_input"
                                                    name="amount_three"/>
@@ -423,7 +423,7 @@
                                                    name="invoice_date_two" placeholder="yyyy-mm-dd"/>
                                         </div>
                                         <div class="col-sm-2">
-                                            <label class="control-label">Refund Amount:</label>
+                                            <label class="control-label">Paid Amount:</label>
                                             <input id="amount_two" type="number"
                                                    class="form-control s_website_form_input"
                                                    name="amount_two"/>
@@ -473,7 +473,7 @@
                                         <label class="col-form-label col-sm-auto s_website_form_label"
                                                style="width: 200px">
                                             <span class="s_website_form_label_content">
-                                                Refund Amount Total:
+                                                Total Paid:
                                             </span>
                                         </label>
                                         <div class="col-sm">
