@@ -195,7 +195,8 @@
                                 <tree string="Invoices" editable="bottom">
                                     <field name="invoice_number"/>
                                     <field name="invoice_date"/>
-                                    <field name="refund_amt" widget="monetary"/>
+                                    <field name="currency_id" invisible="1"/>
+                                    <field name="refund_amt" widget="monetary" string="Paid Amount"/>
                                 </tree>
                             </field>
                         </page>

@@ -95,7 +95,7 @@
                             <!--                            <field name="duration_amount"/>-->
 
                             <div class="oe_subtotal_footer_separator oe_inline">
-                                <label for="total_refund"/>
+                                <label for="total_refund" string="Total Paid"/>
                             </div>
                             <field name="total_refund" nolabel="1" class="oe_subtotal_footer_separator"
                                    widget='monetary' options="{'currency_field': 'currency_id'}"/>

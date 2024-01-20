@@ -364,7 +364,7 @@ class StudentRefund(models.Model):
         refund_record = self.env['student.refund'].search([])
         users = self.env.ref('Refund.group_refund_accounts').users
         for i in users:
-            print(i.name, 'lll')
+            # print(i.name, 'lll')
             for record in refund_record:
                 if record.status != 'accounts':
                     activity_id = record.env['mail.activity'].search(
@@ -463,6 +463,7 @@ class RefundInvoiceDetails(models.Model):
     invoice_date = fields.Date(string='Invoice Date')
     refund_amt = fields.Integer(string='Refund Amount')
     inv_id = fields.Many2one('student.refund', string='Invoice', ondelete='cascade')
+    currency_id = fields.Many2one('res.currency', string='Currency', default=lambda self: self.env.user.company_id.currency_id)
 
 
 class RefundDeduction(models.Model):
