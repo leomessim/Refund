@@ -19,7 +19,7 @@
     ],
     'assets': {
         'web.assets_backend': [
-            'Refund/static/src/js/submitt_button.js'],
+            'Refund/static/src/js/submitt_button.js',],
     },
     'qweb': [
         "static/src/xml/template.xml",

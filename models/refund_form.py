@@ -31,7 +31,7 @@ class StudentRefund(models.Model):
         ('accounts', 'Approved'),
         ('reject', 'Rejected'),
         ('paid', 'Paid'),
-    ], string='Status', default='accountant')
+    ], string='Status', default='accountant', tracking=True)
     assign_head = fields.Many2one('res.users', string='Assign head')
 
     branch = fields.Char('Branch', readonly=True)
@@ -115,6 +115,39 @@ class StudentRefund(models.Model):
 
     total_all_refund = fields.Float(string='Total Refund', compute='_amount_total_refund', store=True)
 
+    @api.model
+    def get_refund_dashboard(self):
+        expense_state = {
+            'draft': {
+                'description': _('to report'),
+                'amount': 0.0,
+                'currency': self.env.company.currency_id.id,
+            },
+            'reported': {
+                'description': _('under validation'),
+                'amount': 0.0,
+                'currency': self.env.company.currency_id.id,
+            },
+            'approved': {
+                'description': _('to be reimbursed'),
+                'amount': 0.0,
+                'currency': self.env.company.currency_id.id,
+            }
+        }
+        if not self.env.user.employee_ids:
+            return expense_state
+        target_currency = self.env.company.currency_id
+        expenses = self.sudo().read_group(
+            [()], lazy=False)
+        for expense in expenses:
+            state = expense['state']
+            currency = self.env['res.currency'].browse(expense['currency_id'][0]) if expense[
+                'currency_id'] else target_currency
+            amount = currency._convert(
+                expense['total_all_refund'], target_currency, self.env.company, fields.Date.today())
+            expense_state[state]['amount'] += amount
+        return expense_state
+
     @api.depends('ref_total')
     def total_amount_refund(self):
         for rec in self:
@@ -139,7 +172,6 @@ class StudentRefund(models.Model):
                 response = requests.get(url_std)
                 # Print the response
                 response_json = response.json()
-
 
             # for teacher refund request
             if self.assign_to.mobile_phone:
@@ -188,6 +220,14 @@ class StudentRefund(models.Model):
         #                        note=f'Please Approve {self.assign_to.name}')
         #
         # print(self.env.ref('refund_logic.mail_activity_refund_alert_custome').id, 'lll')
+
+    teacher_head_id = fields.Many2one('res.users', string='Teacher Head', compute='_compute_teacher_head_name',
+                                      store=True, readonly=False)
+
+    @api.depends('assign_to')
+    def _compute_teacher_head_name(self):
+        for rec in self:
+            rec.teacher_head_id = rec.assign_to.parent_id.user_id
 
     def confirm_assign_teacher(self):
         if not self.assign_to:
@@ -277,7 +317,7 @@ class StudentRefund(models.Model):
         activity_id = self.env['mail.activity'].search([('res_id', '=', self.id), ('user_id', '=', self.env.user.id), (
             'activity_type_id', '=', self.env.ref('Refund.mail_activity_refund_alert_custome').id)])
         activity_id.action_feedback(feedback='Teacher Approved')
-        self.activity_schedule('Refund.mail_activity_refund_alert_custome', user_id=self.assign_to.parent_id.user_id.id,
+        self.activity_schedule('Refund.mail_activity_refund_alert_custome', user_id=self.teacher_head_id.id,
                                note='Please approve the refund request.')
         return {
             'effect': {
@@ -290,28 +330,23 @@ class StudentRefund(models.Model):
         #                        note='Please Approve')
 
     def head_approval(self):
-        if self.assign_to.parent_id.user_id.id == self.env.user.id:
-
-            print(self.assign_to.parent_id.user_id.name, 'jjj')
-            self.status = 'manager'
-            activity_id = self.env['mail.activity'].search(
-                [('res_id', '=', self.id), ('user_id', '=', self.env.user.id), (
-                    'activity_type_id', '=', self.env.ref('Refund.mail_activity_refund_alert_custome').id)])
-            activity_id.action_feedback(feedback='Head Approved')
-            users = self.env.ref('Refund.refund_manager').users
-            for j in users:
-                self.activity_schedule('Refund.mail_activity_refund_alert_custome', user_id=j.id,
-                                       note='Please approve the refund request.')
-            return {
-                'effect': {
-                    'fadeout': 'slow',
-                    'message': 'Approved successfully.',
-                    'type': 'rainbow_man',
-                }
+        # print(self.assign_to.parent_id.user_id.name, 'jjj')
+        self.status = 'manager'
+        activity_id = self.env['mail.activity'].search(
+            [('res_id', '=', self.id), ('user_id', '=', self.env.user.id), (
+                'activity_type_id', '=', self.env.ref('Refund.mail_activity_refund_alert_custome').id)])
+        activity_id.action_feedback(feedback='Head Approved')
+        users = self.env.ref('Refund.refund_manager').users
+        for j in users:
+            self.activity_schedule('Refund.mail_activity_refund_alert_custome', user_id=j.id,
+                                   note='Please approve the refund request.')
+        return {
+            'effect': {
+                'fadeout': 'slow',
+                'message': 'Approved successfully.',
+                'type': 'rainbow_man',
             }
-        else:
-            raise UserError('Only approval access teacher head')
-
+        }
     def manager_approval(self):
         # self.message_post(body="Marketing Manager is approved")
         self.env['refund.payment'].create({
@@ -463,7 +498,8 @@ class RefundInvoiceDetails(models.Model):
     invoice_date = fields.Date(string='Invoice Date')
     refund_amt = fields.Integer(string='Refund Amount')
     inv_id = fields.Many2one('student.refund', string='Invoice', ondelete='cascade')
-    currency_id = fields.Many2one('res.currency', string='Currency', default=lambda self: self.env.user.company_id.currency_id)
+    currency_id = fields.Many2one('res.currency', string='Currency',
+                                  default=lambda self: self.env.user.company_id.currency_id)
 
 
 class RefundDeduction(models.Model):

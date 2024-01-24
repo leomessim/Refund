@@ -4,7 +4,7 @@
         <field name="name">Refund</field>
         <field name="model">student.refund</field>
         <field name="arch" type="xml">
-            <tree>
+            <tree >
                 <field name="currency_id" invisible="1"/>
                 <field name="reference_no"/>
                 <field name="create_date" string="Refund Date" type="Date"/>
@@ -143,6 +143,7 @@
                             <!--                            <field name="name" readonly="True"/>-->
                             <field name="assign_to"
                                    attrs="{'invisible':[('status', 'in', ['teacher','head_assign','manager','accounts','reject','paid'])]}"/>
+                            <field name="teacher_head_id" string="Head" groups="Refund.group_refund_teacher"/>
                             <field name="student_name"/>
                             <field name="course"/>
                             <field name="batch"/>
