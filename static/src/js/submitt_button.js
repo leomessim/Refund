@@ -2,6 +2,7 @@ document.getElementById("submit").style.display = "none";
 console.log('loaded again')
 odoo.define('Refund.Sample', function(require){
     "use strict"
+    console.log('refund working')
     $(document).ready(function() {
         $('#amount_one').on('change', function() {
             console.log('kok');

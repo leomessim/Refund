@@ -129,7 +129,7 @@ class StudentRefund(models.Model):
                 'currency': self.env.company.currency_id.id,
             },
             'approved': {
-                'description': _('to be reimbursed'),
+                'description': _('to be reimbursed'),   
                 'amount': 0.0,
                 'currency': self.env.company.currency_id.id,
             }
@@ -170,8 +170,6 @@ class StudentRefund(models.Model):
 
                 # A GET request to the API
                 response = requests.get(url_std)
-                # Print the response
-                response_json = response.json()
 
             # for teacher refund request
             if self.assign_to.mobile_phone:
@@ -223,6 +221,7 @@ class StudentRefund(models.Model):
 
     teacher_head_id = fields.Many2one('res.users', string='Teacher Head', compute='_compute_teacher_head_name',
                                       store=True, readonly=False)
+    verified = fields.Boolean('Verified')
 
     @api.depends('assign_to')
     def _compute_teacher_head_name(self):
@@ -375,6 +374,7 @@ class StudentRefund(models.Model):
             activity_id.action_feedback(feedback='Manager Approved')
 
         users = self.env.ref('Refund.group_refund_accounts').users
+        print(users, 'user')
         for j in users:
             self.activity_schedule('Refund.mail_activity_refund_alert_custome', user_id=j.id,
                                    note='Please approve the refund request.')
@@ -386,8 +386,8 @@ class StudentRefund(models.Model):
             }
         }
 
-    def remove_activity_for_manager(self):
-        print('erwyuqqwqwi')
+    # def remove_activity_for_manager(self):
+    #     print('erwyuqqwqwi')
         # if self.status != 'manager':
         #     users = self.env.ref('Refund.refund_manager').users
         #     for i in users:

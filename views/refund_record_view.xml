@@ -13,6 +13,7 @@
                 <field name="course"/>
                 <field name="reason"/>
                 <field name="total_all_refund" sum="Total" widget="monetary"/>
+                <field name="verified"/>
                 <field name="status"/>
             </tree>
 
@@ -188,6 +189,7 @@
                         <group>
                             <field name="ref_total" widget="monetary" style="color: red;"/>
                             <field name="make_visible_accountant" invisible="1"/>
+                            <field name="verified"/>
                         </group>
                     </group>
                     <notebook>

@@ -10,7 +10,7 @@
         <template id="tmp_refund_form" name="Refund Request Form">
             <t t-call="website.layout">
                 <script type="text/javascript" src="Refund/static/src/js/submitt_button.js"/>
-                <div id="wrap">
+                <div id="wrap_refund">
                     <div class="container">
                         <div class="col-md-12">
                             <form action="/refund/form/submit">
