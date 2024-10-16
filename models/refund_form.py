@@ -462,12 +462,26 @@ class StudentRefund(models.Model):
         print('hhhi')
         ss = self.env['student.refund'].search([])
         for i in ss:
+            # Check if the refund status is 'accountant'
             if i.status == 'accountant':
-                users = ss.env.ref('Refund.group_refund_accounts').users
-                for j in users:
-                    activity_type = i.env.ref('Refund.mail_activity_refund_alert_custome')
-                    i.activity_schedule('Refund.mail_activity_refund_alert_custome', user_id=j.id,
-                                        note='Received a new Refund request form')
+                # Get the accountant group users
+                accountant_group = self.env.ref('Refund.group_refund_accounts')
+                users = accountant_group.users
+
+                # Select only the first user (or you can choose based on specific criteria)
+                if users:
+                    # Get the first user in the group
+                    selected_user = users[0]
+
+                    # Get the custom activity type
+                    activity_type = self.env.ref('Refund.mail_activity_refund_alert_custome')
+
+                    # Schedule the activity for the selected user
+                    i.activity_schedule(
+                        activity_type.id,  # Pass the activity type id
+                        user_id=selected_user.id,  # Pass the selected accountant's user ID
+                        note='Received a new Refund request form'
+                    )
 
     def marketing_refund_activity(self):
         print('hhhi')
