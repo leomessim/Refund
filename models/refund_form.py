@@ -38,7 +38,7 @@ class StudentRefund(models.Model):
     student_admission_no = fields.Char('Admission Number', readonly=True)
     parent_number = fields.Char('Parent Number', readonly=True)
     # invoice_number = fields.Text('Invoice number', readonly=True)
-    # invoice_date = fields.Text('Invoice date', readonly=True)
+    
     sat_class = fields.Integer(string='How many days he sat in the class')
     teacher_reason = fields.Text('Remarks for teacher')
     head_reason = fields.Text('Remarks of Academic Head')
